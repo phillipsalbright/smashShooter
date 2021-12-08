@@ -3,6 +3,7 @@ using UnityEngine;
 public class RocketLauncherScript : MonoBehaviour
 {
     public GameObject rocket;
+    /** Set to player holding this weapon */
     [SerializeField] private GameObject player;
     private Transform launcherTransform;
     // Start is called before the first frame update
