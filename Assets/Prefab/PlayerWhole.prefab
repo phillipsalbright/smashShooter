@@ -87,10 +87,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5082612857937729843, guid: 5559a2ebe5966e1468fcbda639a462bc, type: 3}
+      propertyPath: yRotation
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7587904820409520991, guid: 5559a2ebe5966e1468fcbda639a462bc, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 4401984675824887056, guid: b78e7c96cfb8fbf4c9f7851b4d54bc9c, type: 3}
+      objectReference: {fileID: 4950349378700563657, guid: b78e7c96cfb8fbf4c9f7851b4d54bc9c, type: 3}
     - target: {fileID: 7587904820409520991, guid: 5559a2ebe5966e1468fcbda639a462bc, type: 3}
       propertyPath: player
       value: 

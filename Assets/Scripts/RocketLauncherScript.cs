@@ -24,7 +24,7 @@ public class RocketLauncherScript : MonoBehaviour
     void SpawnRocket()
     {
         GameObject launchedRocket = Instantiate(rocket, launcherTransform.transform.TransformPoint(0, 0, 0), launcherTransform.rotation);
-        launchedRocket.GetComponent<Rigidbody>().AddForce(launcherTransform.forward * -7.0f, ForceMode.Impulse);
+        launchedRocket.GetComponent<Rigidbody>().AddForce(launcherTransform.forward * -8.0f, ForceMode.Impulse);
         Physics.IgnoreCollision(launchedRocket.GetComponent<Collider>(), player.GetComponent<Collider>());
     }
 }
