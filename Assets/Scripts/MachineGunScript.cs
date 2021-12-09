@@ -23,7 +23,8 @@ public class MachineGunScript : MonoBehaviour
 
     void SpawnBullet()
     {
-        GameObject shotBullet = Instantiate(bullet, machineGunTransform.transform.TransformPoint(0, 0, 0), machineGunTransform.rotation);
+        Vector3 v = machineGunTransform.rotation.eulerAngles;
+        GameObject shotBullet = Instantiate(bullet, machineGunTransform.transform.TransformPoint(0, .025f, -.2139f), Quaternion.Euler(v.x + 180f, v.y, v.z));
         shotBullet.GetComponent<Rigidbody>().AddForce(machineGunTransform.forward * -7.0f, ForceMode.Impulse);
         Physics.IgnoreCollision(shotBullet.GetComponent<Collider>(), player.GetComponent<Collider>());
     }
