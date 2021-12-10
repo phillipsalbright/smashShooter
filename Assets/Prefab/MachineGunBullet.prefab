@@ -127,3 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 0}
+  bulletImpactEffect: {fileID: 8901389824793292475, guid: faa02a681ada1c84caa493a9d000c689, type: 3}
