@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 8940573443973266847}
   xRotation: 0
-  yRotation: 180
+  yRotation: 0
   orientation: {fileID: 2697828512304354793}
 --- !u!136 &5764936566799789903
 CapsuleCollider:
@@ -275,6 +275,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1341684306945711391}
     m_Modifications:
+    - target: {fileID: 1497336825523086255, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1341684306945711384}
     - target: {fileID: 3545899114297112769, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
       propertyPath: cameraPosition
       value: 

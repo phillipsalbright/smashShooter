@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e5d4027640a1ee44a74cd59e54af9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
+  bullet: {fileID: 4950349378700563657, guid: b78e7c96cfb8fbf4c9f7851b4d54bc9c, type: 3}
   player: {fileID: 0}
 --- !u!1 &2708154693830450817
 GameObject:

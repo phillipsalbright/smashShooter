@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MachineGunBulletImpactScript : MonoBehaviour
 {
     private float damage = 1;
+    private float knockbackForce = 1;
     /** Set by machinegun when spawned */
     public Vector3 direction;
     [SerializeField] private GameObject bulletImpactEffect;
@@ -29,7 +28,7 @@ public class MachineGunBulletImpactScript : MonoBehaviour
             GameObject player = collision.gameObject;
             float multiplier = (player.GetComponent<PlayerHealth>().health / 25) + .5f;
             player.GetComponent<PlayerHealth>().TakeDamage(damage);
-            player.GetComponent<Rigidbody>().AddForce(direction * multiplier, ForceMode.Impulse);
+            player.GetComponent<Rigidbody>().AddForce(direction * multiplier * knockbackForce, ForceMode.Impulse);
         }
         Destroy(this.gameObject);
     }
