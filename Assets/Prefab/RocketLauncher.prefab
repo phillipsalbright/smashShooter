@@ -261,7 +261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9208636478036050527
 Transform:
   m_ObjectHideFlags: 0
@@ -290,3 +290,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocket: {fileID: 8122457976235517816, guid: 494ef1450446a06439b7b265572f2175, type: 3}
+  player: {fileID: 0}
