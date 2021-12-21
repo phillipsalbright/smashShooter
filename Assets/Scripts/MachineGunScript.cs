@@ -9,7 +9,7 @@ public class MachineGunScript : MonoBehaviour
     private Transform machineGunTransform;
     private float bulletSpeed = 12.0f;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         machineGunTransform = transform;
     }

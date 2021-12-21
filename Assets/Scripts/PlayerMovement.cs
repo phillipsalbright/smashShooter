@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         jumped = false;
-        Debug.Log("frog");
         player.velocity = new Vector3(player.velocity.x, 0, player.velocity.z);
         player.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }

@@ -18,6 +18,9 @@ public class PlayerLook : MonoBehaviour
 
     private float sensitivity;
 
+    /** Set to true if a controller is detected, used to make sure controller and mouse logic separate */
+    private bool controller = false;
+
 
     /** Set these for initial rotation values in editor */
     public float xRotation;
@@ -42,25 +45,40 @@ public class PlayerLook : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>().x);
-        mouseX = context.ReadValue<Vector2>().x / 60;
-        mouseY = context.ReadValue<Vector2>().y / 60;
-        yRotation += mouseX * sensitivityX * sensitivity;
-        xRotation -= mouseY * sensitivityY * sensitivity;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        mainCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        if (controller || context.control.displayName == "Right Stick")
+        {
+            mouseX = context.ReadValue<Vector2>().x;
+            mouseY = context.ReadValue<Vector2>().y;
+            controller = true;
+        } else
+        {
+            mouseX = context.ReadValue<Vector2>().x / 60;
+            mouseY = context.ReadValue<Vector2>().y / 60;
+            yRotation += mouseX * sensitivityX * sensitivity;
+            xRotation -= mouseY * sensitivityY * sensitivity;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            mainCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+            orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        }
     }
-    /**
+    
     void Update()
     {
+        /**
         //GetInput();
     
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        */
+        if (controller)
+        {
+            yRotation += mouseX * sensitivityX * sensitivity;
+            xRotation -= mouseY * sensitivityY * sensitivity;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            mainCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+            orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        }
     }
-    */
 
     private void GetInput()
     {
