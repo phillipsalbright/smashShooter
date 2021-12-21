@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerLook : MonoBehaviour
 {
@@ -39,12 +40,27 @@ public class PlayerLook : MonoBehaviour
         }
     }
 
-    void Update()
+    public void OnLook(InputAction.CallbackContext context)
     {
-        GetInput();
+        Debug.Log(context.ReadValue<Vector2>().x);
+        mouseX = context.ReadValue<Vector2>().x / 60;
+        mouseY = context.ReadValue<Vector2>().y / 60;
+        yRotation += mouseX * sensitivityX * sensitivity;
+        xRotation -= mouseY * sensitivityY * sensitivity;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
+    /**
+    void Update()
+    {
+        //GetInput();
+    
+        mainCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
+    */
 
     private void GetInput()
     {

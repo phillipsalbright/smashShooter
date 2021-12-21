@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RocketLauncherScript : MonoBehaviour
 {
@@ -12,6 +13,15 @@ public class RocketLauncherScript : MonoBehaviour
         launcherTransform = transform;
     }
 
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (context.action.triggered && this.gameObject.activeInHierarchy == true)
+        {
+            SpawnRocket();
+        }
+    }
+
+    /**
     // Update is called once per frame
     void Update()
     {
@@ -20,6 +30,7 @@ public class RocketLauncherScript : MonoBehaviour
             SpawnRocket();
         }
     }
+    */
 
     void SpawnRocket()
     {

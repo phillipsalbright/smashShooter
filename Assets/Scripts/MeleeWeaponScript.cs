@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MeleeWeaponScript : MonoBehaviour
 {
     private float damage = 10f;
-    private float range = 4;
+    private float range = 2.2f;
     private float knockbackForce = 12;
     private Animator meleeAnimator;
     private float nextTimeToAttack = 0f;
@@ -16,6 +17,16 @@ public class MeleeWeaponScript : MonoBehaviour
         meleeAnimator = GetComponent<Animator>();
     }
 
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.action.triggered && Time.time >= nextTimeToAttack && this.gameObject.activeInHierarchy == true)
+        {
+            nextTimeToAttack = Time.time + 1f / attackRate;
+            Attack();
+        }
+    }
+
+    /**
     // Update is called once per frame
     void Update()
     {
@@ -25,6 +36,7 @@ public class MeleeWeaponScript : MonoBehaviour
             Attack();
         }
     }
+    */
 
     private void Attack()
     {

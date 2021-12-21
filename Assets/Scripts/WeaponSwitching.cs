@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponSwitching : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class WeaponSwitching : MonoBehaviour
     private int numberOfWeapons = 2;
     private int nextWeaponIndex;
     public Transform[] weaponArray;
+    private float switchWeaponInput;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,37 @@ public class WeaponSwitching : MonoBehaviour
         }
     }
 
+    public void OnScroll(InputAction.CallbackContext context)
+    {
+        switchWeaponInput = context.ReadValue<float>();
+        if (switchWeaponInput > 0)
+        {
+            nextWeaponIndex = (nextWeaponIndex + 1) % numberOfWeapons;
+        }
+        else if (switchWeaponInput < 0)
+        {
+            if (nextWeaponIndex <= 0)
+            {
+                nextWeaponIndex = numberOfWeapons - 1;
+            }
+            else
+            {
+                nextWeaponIndex--;
+            }
+        }
+        /** Num key code for weapon switch, implement later when all weapons added.
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+          selectedWeapon = 0;
+        }
+        etc.
+        */
+        if (nextWeaponIndex != currentWeaponIndex)
+        {
+            SelectWeapon();
+        }
+    }
+
+    /**
     // Update is called once per frame
     void Update()
     {
@@ -49,12 +82,12 @@ public class WeaponSwitching : MonoBehaviour
           selectedWeapon = 0;
         }
         etc.
-        */
         if (nextWeaponIndex != currentWeaponIndex)
         {
             SelectWeapon();
         }
     }
+    */
 
     void SelectWeapon()
     {

@@ -408,11 +408,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434711046}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!20 &438639757 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8234433740860953087, guid: 883e9869a582058438c2754227e468e5, type: 3}
-  m_PrefabInstance: {fileID: 2055120366}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &670285885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -941,6 +936,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011880767}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2047843036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047843037}
+  - component: {fileID: 2047843038}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2047843037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047843036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.175927, y: 1.5205288, z: -2.7622662}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2047843038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047843036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 0
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 1
+  m_JoinBehavior: 0
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 1536821936559451232, guid: 883e9869a582058438c2754227e468e5, type: 3}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1001 &2055120366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -952,44 +1021,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerWhole (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 3602341896558521696, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 438639757}
-    - target: {fileID: 3602341896558521696, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3602341896558521696, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_PlaneDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3602341896558521697, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_ScaleFactor
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3602341896558521697, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3602341896558521697, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 3602341896558521697, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 540
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664113299837788826, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: yRotation
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 8234433740860953087, guid: 883e9869a582058438c2754227e468e5, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8234433740860953087, guid: 883e9869a582058438c2754227e468e5, type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8725930305676311618, guid: 883e9869a582058438c2754227e468e5, type: 3}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /**
  * This class handles the basic, phsyics based, player movement. Many of the variables should be
@@ -26,10 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce;
     /** Multiplier for gravity. Drag is used to limit X and Y movement in air, may need extra gravity because of this. */
     [SerializeField] private float gravityMultiplier;
-
-    [Header("Keybinds")]
-    /** Key bound to jump */
-    [SerializeField] KeyCode jumpKey;
+    private bool jumped;
 
     [Header("Drag")]
     /** Ammount of drag to be applied to player movement (ground higher than air) */
@@ -62,16 +60,23 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        GetInput();
+        //GetInput();
         ControlDrag();
-        if (Input.GetKeyDown(jumpKey) && isGrounded)
+        if (jumped && isGrounded)
         {
             Jump();
         }
     }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        jumped = context.action.triggered;
+    }
+
     private void Jump()
     {
+        jumped = false;
+        Debug.Log("frog");
         player.velocity = new Vector3(player.velocity.x, 0, player.velocity.z);
         player.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -87,11 +92,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void GetInput()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        horizontalMovement = Input.GetAxisRaw("Horizontal");
-        verticalMovement = Input.GetAxisRaw("Vertical");
-        moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+        horizontalMovement = context.ReadValue<Vector2>().x;
+        verticalMovement = context.ReadValue<Vector2>().y;
+        
     }
 
     void FixedUpdate()
@@ -116,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
+        moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
         if (isGrounded && !OnSlope())
         {
             player.AddForce(movementMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Acceleration);

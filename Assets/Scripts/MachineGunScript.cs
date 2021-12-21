@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MachineGunScript : MonoBehaviour
 {
@@ -13,6 +14,14 @@ public class MachineGunScript : MonoBehaviour
         machineGunTransform = transform;
     }
 
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (context.action.triggered && this.gameObject.activeInHierarchy == true)
+        {
+            SpawnBullet();
+        }
+    }
+    /**
     // Update is called once per frame
     void Update()
     {
@@ -21,6 +30,7 @@ public class MachineGunScript : MonoBehaviour
             SpawnBullet();
         }
     }
+    */
 
     void SpawnBullet()
     {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1341684306945711390}
   - component: {fileID: 695890333373823687}
   - component: {fileID: 1341684306945711385}
+  - component: {fileID: 589147101}
   - component: {fileID: 5082612857937729843}
   - component: {fileID: 5764936566799789903}
   - component: {fileID: 2131957184701627114}
@@ -88,7 +89,6 @@ MonoBehaviour:
   airMultiplier: 0.2
   jumpForce: 14
   gravityMultiplier: 2.6
-  jumpKey: 32
   groundDrag: 6
   airDrag: 1.5
   groundCheck: {fileID: 796891147133983010}
@@ -99,6 +99,140 @@ MonoBehaviour:
   playerHeight: 2
   orientation: {fileID: 2697828512304354793}
   player: {fileID: 1341684306945711390}
+--- !u!114 &589147101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341684306945711384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 74761088a2357c3429b1ea1b34fe5d88, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1341684306945711385}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 3a3da207-da77-4853-b38c-d4bf098fae91
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1341684306945711385}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 61b6ad5f-5020-4e88-9b92-3bba8421bd3e
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2829365893989475843}
+        m_TargetAssemblyTypeName: RocketLauncherScript, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7587904820409520991}
+        m_TargetAssemblyTypeName: MachineGunScript, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5862505633406059920}
+        m_TargetAssemblyTypeName: MeleeWeaponScript, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f36f2e3f-f7ad-4952-8436-2d276caf7223
+    m_ActionName: Player/Shoot
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3740659861880778266}
+        m_TargetAssemblyTypeName: WeaponSwitching, Assembly-CSharp
+        m_MethodName: OnScroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c9eef159-d0b7-4040-85c5-fdb8b54659a1
+    m_ActionName: Player/SwitchWeapons
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5082612857937729843}
+        m_TargetAssemblyTypeName: PlayerLook, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2934e5e7-4ab2-4389-9a4b-1fc8bfc53584
+    m_ActionName: Player/Look[/Mouse/delta]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &5082612857937729843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,3 +485,47 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 115247502030065007, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
   m_PrefabInstance: {fileID: 9046109680804425968}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3740659861880778266 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5648431478924041962, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+  m_PrefabInstance: {fileID: 9046109680804425968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872e3cafde999684c968a12ddf9dbe73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2829365893989475843 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6541990391766898419, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+  m_PrefabInstance: {fileID: 9046109680804425968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da5fa1022bda804eb2e02b5df983a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7587904820409520991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1497336825523086255, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+  m_PrefabInstance: {fileID: 9046109680804425968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5d4027640a1ee44a74cd59e54af9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5862505633406059920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3229627405261141344, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+  m_PrefabInstance: {fileID: 9046109680804425968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ff07bffec7e6d40b221b6ebb2aa8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
