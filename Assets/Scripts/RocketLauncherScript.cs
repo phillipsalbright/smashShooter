@@ -8,7 +8,7 @@ public class RocketLauncherScript : MonoBehaviour
     [SerializeField] private GameObject player;
     private Transform launcherTransform;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         launcherTransform = transform;
     }

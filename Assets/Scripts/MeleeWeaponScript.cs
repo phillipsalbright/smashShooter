@@ -12,7 +12,7 @@ public class MeleeWeaponScript : MonoBehaviour
     /** Position of the crosshair on screen, used to detect if the attack should "hit" or not */
     public GameObject raycastPosition;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         meleeAnimator = GetComponent<Animator>();
     }
