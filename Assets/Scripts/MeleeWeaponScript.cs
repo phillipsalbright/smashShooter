@@ -54,7 +54,7 @@ public class MeleeWeaponScript : MonoBehaviour
             {
                 Debug.Log("frog2");
                 float multiplier = (target.health / 25) + 1f;
-                hit.rigidbody.AddForce(-hit.normal * knockbackForce, ForceMode.Impulse);
+                hit.rigidbody.AddForce(-hit.normal * knockbackForce * multiplier, ForceMode.Impulse);
             }
         }
     }
