@@ -80,6 +80,7 @@ public class PlayerLook : MonoBehaviour
         }
     }
 
+    /** Old input system
     private void GetInput()
     {
         mouseX = Input.GetAxisRaw("Mouse X");
@@ -88,4 +89,5 @@ public class PlayerLook : MonoBehaviour
         xRotation -= mouseY * sensitivityY * sensitivity;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
     }
+    */
 }

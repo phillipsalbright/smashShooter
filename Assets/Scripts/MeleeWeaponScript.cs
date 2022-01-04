@@ -26,7 +26,7 @@ public class MeleeWeaponScript : MonoBehaviour
         }
     }
 
-    /**
+    /** old input system
     // Update is called once per frame
     void Update()
     {
@@ -49,6 +49,10 @@ public class MeleeWeaponScript : MonoBehaviour
             {
                 Debug.Log("frog1");
                 target.TakeDamage(damage);
+            }
+            if (hit.transform.GetComponent<TargetHealthScript>())
+            {
+                hit.transform.GetComponent<TargetHealthScript>().TakeDamage(damage);
             }
             if (hit.rigidbody != null)
             {

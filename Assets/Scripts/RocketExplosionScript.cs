@@ -17,8 +17,16 @@ public class RocketExplosionScript : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(explosionPoint, blastRadius, players);
         foreach(Collider hitcol in hitColliders)
         {
-            float multiplier = (hitcol.GetComponent<PlayerHealth>().health / 25) + .1f;
-            hitcol.GetComponent<PlayerHealth>().TakeDamage(damage);
+            float multiplier = 1f;
+            if (hitcol.GetComponent<PlayerHealth>())
+            {
+                hitcol.GetComponent<PlayerHealth>().TakeDamage(damage);
+                multiplier = (hitcol.GetComponent<PlayerHealth>().health / 25) + .1f;
+            } else if (hitcol.GetComponent<TargetHealthScript>())
+            {
+                hitcol.GetComponent<TargetHealthScript>().TakeDamage(damage);
+                multiplier = (hitcol.GetComponent<TargetHealthScript>().health / 25) + .1f;
+            }
             hitcol.GetComponent<Rigidbody>().AddExplosionForce(multiplier * explosionForce, explosionPoint, blastRadius, 1, ForceMode.Impulse);
         }
         Destroy(this.gameObject);

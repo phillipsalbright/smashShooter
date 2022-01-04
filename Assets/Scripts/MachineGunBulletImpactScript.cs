@@ -29,6 +29,12 @@ public class MachineGunBulletImpactScript : MonoBehaviour
             float multiplier = (player.GetComponent<PlayerHealth>().health / 25) + .5f;
             player.GetComponent<PlayerHealth>().TakeDamage(damage);
             player.GetComponent<Rigidbody>().AddForce(direction * multiplier * knockbackForce, ForceMode.Impulse);
+        } else if (collision.gameObject.layer == 8)
+        {
+            GameObject target = collision.gameObject;
+            float multiplier = (target.GetComponent<TargetHealthScript>().health / 25) + .5f;
+            target.GetComponent<TargetHealthScript>().TakeDamage(damage);
+            target.GetComponent<Rigidbody>().AddForce(direction * multiplier * knockbackForce, ForceMode.Impulse);
         }
         Destroy(this.gameObject);
     }

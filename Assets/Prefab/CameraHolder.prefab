@@ -152,7 +152,7 @@ Camera:
     x: 0
     y: 0
     width: 1
-    height: 0.5
+    height: 1
   near clip plane: 0.01
   far clip plane: 1000
   field of view: 90
@@ -235,6 +235,10 @@ PrefabInstance:
     - target: {fileID: 1209064313412475706, guid: ceb9a7335158c71429b23d8d75245e46, type: 3}
       propertyPath: m_Name
       value: MeleeWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1209064313412475706, guid: ceb9a7335158c71429b23d8d75245e46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4247605279661596245, guid: ceb9a7335158c71429b23d8d75245e46, type: 3}
       propertyPath: raycastPosition

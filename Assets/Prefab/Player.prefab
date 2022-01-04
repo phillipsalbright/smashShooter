@@ -70,7 +70,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208953cd9b4b280458b4222eb4d034e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  disableOnDeath:
+  - {fileID: 1341684306945711385}
+  - {fileID: 5082612857937729843}
+  - {fileID: 3740659861880778266}
+  inputGetter: {fileID: 589147101}
   hurtImage: {fileID: 7558390941240430932, guid: 573cbb826bce73f4093a563090e184e2, type: 3}
 --- !u!114 &1341684306945711385
 MonoBehaviour:
@@ -169,7 +173,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 7587904820409520991}
         m_TargetAssemblyTypeName: MachineGunScript, Assembly-CSharp
         m_MethodName: OnShoot
@@ -181,7 +185,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 5862505633406059920}
         m_TargetAssemblyTypeName: MeleeWeaponScript, Assembly-CSharp
         m_MethodName: OnAttack
@@ -193,7 +197,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
     m_ActionId: f36f2e3f-f7ad-4952-8436-2d276caf7223
     m_ActionName: Player/Shoot
   - m_PersistentCalls:
@@ -209,7 +213,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
     m_ActionId: c9eef159-d0b7-4040-85c5-fdb8b54659a1
     m_ActionName: Player/SwitchWeapons
   - m_PersistentCalls:
@@ -225,7 +229,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
     m_ActionId: 2934e5e7-4ab2-4389-9a4b-1fc8bfc53584
     m_ActionName: Player/Look[/Mouse/delta]
   m_NeverAutoSwitchControlSchemes: 0
@@ -335,7 +339,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4652738898199089178}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -473,10 +477,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1341684306945711384}
-    - target: {fileID: 8907051177191430822, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
 --- !u!4 &3833749154192676038 stripped
