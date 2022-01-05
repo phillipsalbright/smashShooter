@@ -214,7 +214,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
         SetDefaults();
         Vector3 spawnPoint = new Vector3(0, 10, 0);
         transform.position = spawnPoint;
