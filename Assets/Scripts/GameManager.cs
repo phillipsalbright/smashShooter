@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public Transform startPoint;
 
+    private int playerCounter = 1;
+
     private void Awake()
     {
         if (instance != null)
@@ -21,5 +23,11 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    public int GetNextPlayerNumber()
+    {
+        playerCounter++;
+        return playerCounter - 1;
     }
 }

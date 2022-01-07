@@ -118,7 +118,7 @@ public class PlayerHealth : MonoBehaviour
                 }
                 Destroy(other.gameObject);
                 break;
-            case 11:
+            case 12:
                 int newBullets = bullets + 20;
                 if (newBullets > maxBullets)
                 {
@@ -131,7 +131,7 @@ public class PlayerHealth : MonoBehaviour
                 }
                 Destroy(other.gameObject);
                 break;
-            case 12:
+            case 11:
                 int newRockets = rockets + 5;
                 if (newRockets > maxRockets)
                 {

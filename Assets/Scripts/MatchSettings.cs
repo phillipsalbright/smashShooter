@@ -5,4 +5,5 @@ public class MatchSettings
     public int startingBullets = 50;
     public int startingRockets = 5;
     public float startingHealth = 0;
+    public int numberOfPlayers = 2;
 }
