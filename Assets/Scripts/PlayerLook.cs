@@ -80,6 +80,14 @@ public class PlayerLook : MonoBehaviour
         }
     }
 
+    /** Used by other scripts to rotate the player */
+    public void SetRotation(float x, float y)
+    {
+        xRotation = x;
+        yRotation = y;
+        mainCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
     /** Old input system
     private void GetInput()
     {

@@ -6,18 +6,37 @@ public class RocketLauncherScript : MonoBehaviour
     public GameObject rocket;
     /** Set to player holding this weapon */
     [SerializeField] private GameObject player;
+    private PlayerHealth playerHealth;
+    private AmmoDisplay ammoDisplay;
     private Transform launcherTransform;
-    // Start is called before the first frame update
+
+    public float maxAmmo = 20;
+    private float nextTimeToFire = 0f;
+    private float fireRate = 1;
+
     void Awake()
     {
         launcherTransform = transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
+        ammoDisplay = player.GetComponentInChildren<AmmoDisplay>();
     }
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (context.action.triggered && this.gameObject.activeInHierarchy == true)
+        if (context.action.triggered && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
         {
-            SpawnRocket();
+            nextTimeToFire = Time.time + 1f / fireRate;
+            if (playerHealth.rockets > 0)
+            {
+                playerHealth.rockets--;
+                SpawnRocket();
+                ammoDisplay.setRockets(playerHealth.rockets);
+                //play shooting sound
+                //play shooting animation
+            } else
+            {
+                //play not shooting sound
+            }
         }
     }
 

@@ -8,35 +8,38 @@ using UnityEngine.InputSystem;
  */
 public class PlayerHealth : MonoBehaviour
 {
-    /**
-     * This is code that would be needed if switched to an online game. Have to do this is you want to syncvar.
-    private bool _isDead = false;
-    public bool isDead
-    {
-        get { return _isDead; }
-        protected set { _isDead = value; }
-    }
-    */
+    [SerializeField] private AmmoDisplay ammoDisplay;
 
     public bool isDead { get; protected set; }
     public float health { get; protected set; }
+    public int bullets;
+    private int maxBullets = 100;
+    public int rockets;
+    private int maxRockets = 50;
 
-    /** Used in death/respawn */
+    /** Used in death/respawn, mostly things that should be disabled and renabled in the process. */
     [SerializeField]
     private Behaviour[] disableOnDeath;
     [SerializeField]
     private PlayerInput inputGetter;
+    [SerializeField]
+    private MeshRenderer[] models;
+    [SerializeField]
+    private GameObject weaponHolder;
     private bool[] wasEnabled;
 
-    /** Set from playerWhole prefab. Need playerHud for hurt animations */
     //public DeathScreen deathScreen;
     public GameObject hurtImage;
-    /** Set gun to this in editor */
-    //[SerializeField] private Gun gun;
-    //private float nextAcidDamage = 0;
+
+    GameManager gameManager;
 
     private void Start()
     {
+        gameManager = GameManager.instance;
+        transform.position = gameManager.startPoint.position;
+        float xrotation = gameManager.startPoint.rotation.eulerAngles.x;
+        float yrotation = gameManager.startPoint.rotation.eulerAngles.y;
+        this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
         Setup();
     }
 
@@ -57,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
         health += damage;
+        ammoDisplay.setHealth(health);
         if (hurtImage != null)
         {
             StartCoroutine(HurtAnimation());
@@ -87,7 +91,11 @@ public class PlayerHealth : MonoBehaviour
             inputGetter.DeactivateInput();
         }
         Debug.Log("DEAD!");
-        //Call Respawn method
+        for (int i = 0; i < models.Length; i++)
+        {
+            models[i].enabled = false;
+        }
+        weaponHolder.SetActive(false);
         StartCoroutine(Respawn());
         //deathScreen.Death();
     }
@@ -98,34 +106,43 @@ public class PlayerHealth : MonoBehaviour
         {
             case 10:
                 /** Health pack */
-                float newHealth = health + 10f;
-                if (newHealth >= 50f)
+                float newHealth = health - 10f;
+                if (newHealth <= 0)
                 {
-                    health = 50f;
+                    health = 0;
                 }
                 else
                 {
                     health = newHealth;
+                    ammoDisplay.setHealth(health);
                 }
                 Destroy(other.gameObject);
                 break;
             case 11:
-                /** Ammo pack, will need more of these with our more ammo types (this is from a single gun game */
-                /**
-                if (gun.ammoCount >= gun.maxAmmo)
+                int newBullets = bullets + 20;
+                if (newBullets > maxBullets)
                 {
-                    return;
+                    bullets = maxBullets;
                 }
-                int newAmmo = gun.ammoCount + 6;
-                if (newAmmo > gun.maxAmmo)
+                else
                 {
-                    gun.ammoCount = gun.maxAmmo;
-                } else
-                {
-                    gun.ammoCount = newAmmo;
+                    bullets = newBullets;
+                    ammoDisplay.setBullets(bullets);
                 }
                 Destroy(other.gameObject);
-                */
+                break;
+            case 12:
+                int newRockets = rockets + 5;
+                if (newRockets > maxRockets)
+                {
+                    rockets = maxRockets;
+                }
+                else
+                {
+                    rockets = newRockets;
+                    ammoDisplay.setRockets(rockets);
+                }
+                Destroy(other.gameObject);
                 break;
             case 6:
                 Death();
@@ -133,69 +150,17 @@ public class PlayerHealth : MonoBehaviour
             default:
                 break;
         }
-        /** old stuff. I put most of this in the switch statement.
-        if (other.gameObject.layer == 10)
-        {
-            float newHealth = health + 10f;
-            if (newHealth >= 50f)
-            {
-                health = 50f;
-            } else
-            {
-                health = newHealth;
-            }
-            Destroy(other.gameObject);
-        }
-        if (other.gameObject.layer == 11)
-        {
-            /**
-            if (gun.ammoCount >= gun.maxAmmo)
-            {
-                return;
-            }
-            int newAmmo = gun.ammoCount + 6;
-            if (newAmmo > gun.maxAmmo)
-            {
-                gun.ammoCount = gun.maxAmmo;
-            } else
-            {
-                gun.ammoCount = newAmmo;
-            }
-            Destroy(other.gameObject);
-        }
-        if (other.gameObject.layer == 13)
-        {
-            //StartCoroutine(AcidCheck(other));
-            /**
-            while (other.bounds.Intersects(this.gameObject.GetComponentInChildren<CapsuleCollider>().bounds))
-            {
-                if (Time.time >= nextAcidDamage)
-                {
-                    TakeDamage(3f);
-                    nextAcidDamage = Time.time + 2f;
-                }
-            }
-        }
-        */
     }
-    /**
-    IEnumerator AcidCheck(Collider other)
-    {
-        while (other.bounds.Intersects(this.gameObject.GetComponentInChildren<CapsuleCollider>().bounds))
-        {
-            if (Time.time >= nextAcidDamage)
-            {
-                TakeDamage(3f);
-                nextAcidDamage = Time.time + 2f;
-            }
-            yield return new WaitForSeconds(2f);
-        }
-    }
-    */
+
     private void SetDefaults()
     {
         isDead = false;
-        health = 0;
+        health = gameManager.matchSettings.startingHealth;
+        bullets = gameManager.matchSettings.startingBullets;
+        rockets = gameManager.matchSettings.startingRockets;
+        ammoDisplay.setHealth(health);
+        ammoDisplay.setRockets(rockets);
+        ammoDisplay.setBullets(bullets);
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
             disableOnDeath[i].enabled = wasEnabled[i];
@@ -214,12 +179,20 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
+        yield return new WaitForSeconds(1f);
+        transform.position = gameManager.spectatorPoint.position;
+        this.GetComponent<PlayerLook>().SetRotation(gameManager.spectatorPoint.rotation.eulerAngles.x, gameManager.spectatorPoint.rotation.eulerAngles.y);
+        yield return new WaitForSeconds(gameManager.matchSettings.respawnTime);
+        int spawnPointIndex = Random.Range(0, gameManager.spawnPoints.Length);
+
         SetDefaults();
-        Vector3 spawnPoint = new Vector3(0, 10, 0);
-        transform.position = spawnPoint;
-        /** Go back and make a manager with spawn points for each map.
-         * Use both spawnpoint position and rotation
-         */
+        transform.position = gameManager.spawnPoints[spawnPointIndex].position;
+        float xrotation = gameManager.spawnPoints[spawnPointIndex].rotation.eulerAngles.x;
+        float yrotation = gameManager.spawnPoints[spawnPointIndex].rotation.eulerAngles.y;
+        this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
+        for (int i = 0; i < models.Length; i++) {
+            models[i].enabled = true;
+        }
+        weaponHolder.SetActive(true);
     }
 }

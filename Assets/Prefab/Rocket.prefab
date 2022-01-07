@@ -129,4 +129,4 @@ MonoBehaviour:
   explosionEffect: {fileID: 4657579088204037356, guid: 2046033dd8bb5484384ade70175c2e56, type: 3}
   players:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384

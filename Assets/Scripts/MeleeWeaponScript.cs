@@ -45,19 +45,18 @@ public class MeleeWeaponScript : MonoBehaviour
         if (Physics.Raycast(raycastPosition.transform.position, raycastPosition.transform.forward, out hit, range))
         {
             PlayerHealth target = hit.transform.GetComponent<PlayerHealth>();
+            float multiplier = 1;
             if (target != null)
             {
-                Debug.Log("frog1");
                 target.TakeDamage(damage);
-            }
-            if (hit.transform.GetComponent<TargetHealthScript>())
+                multiplier = (target.health / 25) + 1f;
+            } else if (hit.transform.GetComponent<TargetHealthScript>())
             {
                 hit.transform.GetComponent<TargetHealthScript>().TakeDamage(damage);
+                multiplier = (hit.transform.GetComponent<TargetHealthScript>().health / 25) + 1f;
             }
             if (hit.rigidbody != null)
             {
-                Debug.Log("frog2");
-                float multiplier = (target.health / 25) + 1f;
                 hit.rigidbody.AddForce(-hit.normal * knockbackForce * multiplier, ForceMode.Impulse);
             }
         }

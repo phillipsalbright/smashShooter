@@ -1,24 +1,58 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class MachineGunScript : MonoBehaviour
 {
     public GameObject bullet;
     /** Set to player holding this weapon */
     [SerializeField] private GameObject player;
+    private PlayerHealth playerHealth;
+    private AmmoDisplay ammoDisplay;
     private Transform machineGunTransform;
     private float bulletSpeed = 12.0f;
+    public float maxAmmo = 100;
+    private bool buttonDown = false;
+    private float fireRate = 5;
+    private float nextTimeToFire;
+
     // Start is called before the first frame update
     void Awake()
     {
         machineGunTransform = transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
+        ammoDisplay = player.GetComponentInChildren<AmmoDisplay>();
+    }
+
+    void FixedUpdate()
+    {
+        if (buttonDown && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
+        {
+            nextTimeToFire = Time.time + 1f / fireRate;
+            if (playerHealth.bullets > 0)
+            {
+                playerHealth.bullets--;
+                SpawnBullet();
+                ammoDisplay.setBullets(playerHealth.bullets);
+                // play shoot sound
+                // play shoot animation
+            }
+            else
+            {
+                //play out of ammo sound
+            }
+        }
     }
 
     public void OnShoot(InputAction.CallbackContext context)
     {
         if (context.action.triggered && this.gameObject.activeInHierarchy == true)
         {
-            SpawnBullet();
+            buttonDown = true;
+            //StartCoroutine(Shooting());
+        } else
+        {
+            buttonDown = false;
         }
     }
     /**
@@ -31,6 +65,24 @@ public class MachineGunScript : MonoBehaviour
         }
     }
     */
+
+    IEnumerator Shooting()
+    {
+        while (buttonDown && this.gameObject.activeInHierarchy == true) {
+            if (playerHealth.bullets > 0)
+            {
+                playerHealth.bullets--;
+                SpawnBullet();
+                ammoDisplay.setBullets(playerHealth.bullets);
+                // play shoot sound
+                // play shoot animation
+            } else
+            {
+                //play out of ammo sound
+            }
+            yield return new WaitForSeconds(1f / fireRate);
+        }
+    }
 
     void SpawnBullet()
     {

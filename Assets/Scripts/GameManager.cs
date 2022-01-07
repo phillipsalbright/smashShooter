@@ -6,6 +6,12 @@ public class GameManager : MonoBehaviour
 
     public MatchSettings matchSettings;
 
+    public Transform[] spawnPoints;
+
+    public Transform spectatorPoint;
+
+    public Transform startPoint;
+
     private void Awake()
     {
         if (instance != null)
