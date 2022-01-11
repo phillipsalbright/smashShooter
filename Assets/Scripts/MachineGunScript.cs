@@ -8,7 +8,7 @@ public class MachineGunScript : MonoBehaviour
     /** Set to player holding this weapon */
     [SerializeField] private GameObject player;
     private PlayerHealth playerHealth;
-    private AmmoDisplay ammoDisplay;
+    private PlayerHudScript playerHud;
     private Transform machineGunTransform;
     private float bulletSpeed = 12.0f;
     public float maxAmmo = 100;
@@ -21,7 +21,7 @@ public class MachineGunScript : MonoBehaviour
     {
         machineGunTransform = transform;
         playerHealth = player.GetComponent<PlayerHealth>();
-        ammoDisplay = player.GetComponentInChildren<AmmoDisplay>();
+        playerHud = player.GetComponentInChildren<PlayerHudScript>();
     }
 
     void FixedUpdate()
@@ -33,7 +33,7 @@ public class MachineGunScript : MonoBehaviour
             {
                 playerHealth.bullets--;
                 SpawnBullet();
-                ammoDisplay.setBullets(playerHealth.bullets);
+                playerHud.SetBullets(playerHealth.bullets);
                 // play shoot sound
                 // play shoot animation
             }
@@ -73,7 +73,7 @@ public class MachineGunScript : MonoBehaviour
             {
                 playerHealth.bullets--;
                 SpawnBullet();
-                ammoDisplay.setBullets(playerHealth.bullets);
+                playerHud.SetBullets(playerHealth.bullets);
                 // play shoot sound
                 // play shoot animation
             } else

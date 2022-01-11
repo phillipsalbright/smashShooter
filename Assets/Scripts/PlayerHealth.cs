@@ -3,12 +3,12 @@ using System.Collections;
 using UnityEngine.InputSystem;
 
 /**
- * Class that handles player health/death calculations. Also calls the Gun when ammo Pickups are hit.
+ * Class that handles player health/death calculations and manages what happens on player spawn and death. Also calls the Gun when ammo Pickups are hit.
  * Can change value of health and ammo pickups here.
  */
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private AmmoDisplay ammoDisplay;
+    private PlayerHudScript playerHud;
 
     public bool isDead { get; protected set; }
     public float health { get; protected set; }
@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     private int maxBullets = 100;
     public int rockets;
     private int maxRockets = 50;
+    public int livesLeft;
+    public int playerNumber;
 
     /** Used in death/respawn, mostly things that should be disabled and renabled in the process. */
     [SerializeField]
@@ -35,7 +37,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
+        playerHud = GetComponentInChildren<PlayerHudScript>();
         gameManager = GameManager.instance;
+        livesLeft = gameManager.matchSettings.startingLives;
+        playerNumber = gameManager.GetNextPlayerNumber();
         transform.position = gameManager.startPoint.position;
         float xrotation = gameManager.startPoint.rotation.eulerAngles.x;
         float yrotation = gameManager.startPoint.rotation.eulerAngles.y;
@@ -45,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Setup()
     {
+        playerHud.SetLives(livesLeft);
         wasEnabled = new bool[disableOnDeath.Length];
         for (int i = 0; i < wasEnabled.Length; i++)
         {
@@ -60,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
         health += damage;
-        ammoDisplay.setHealth(health);
+        playerHud.SetHealth(health);
         if (hurtImage != null)
         {
             StartCoroutine(HurtAnimation());
@@ -90,14 +96,22 @@ public class PlayerHealth : MonoBehaviour
         {
             inputGetter.DeactivateInput();
         }
-        Debug.Log("DEAD!");
         for (int i = 0; i < models.Length; i++)
         {
             models[i].enabled = false;
         }
         weaponHolder.SetActive(false);
-        StartCoroutine(Respawn());
-        //deathScreen.Death();
+        livesLeft--;
+        playerHud.ClearHud();
+        if (livesLeft > 0)
+        {
+            StartCoroutine(Respawn());
+        } else
+        {
+            playerHud.UpdateHudForDeath();
+            PlaceAsSpectator();
+            // Tell manager this player has been knocked out
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -114,7 +128,7 @@ public class PlayerHealth : MonoBehaviour
                 else
                 {
                     health = newHealth;
-                    ammoDisplay.setHealth(health);
+                    playerHud.SetHealth(health);
                 }
                 Destroy(other.gameObject);
                 break;
@@ -127,7 +141,7 @@ public class PlayerHealth : MonoBehaviour
                 else
                 {
                     bullets = newBullets;
-                    ammoDisplay.setBullets(bullets);
+                    playerHud.SetBullets(bullets);
                 }
                 Destroy(other.gameObject);
                 break;
@@ -140,7 +154,7 @@ public class PlayerHealth : MonoBehaviour
                 else
                 {
                     rockets = newRockets;
-                    ammoDisplay.setRockets(rockets);
+                    playerHud.SetRockets(rockets);
                 }
                 Destroy(other.gameObject);
                 break;
@@ -158,9 +172,9 @@ public class PlayerHealth : MonoBehaviour
         health = gameManager.matchSettings.startingHealth;
         bullets = gameManager.matchSettings.startingBullets;
         rockets = gameManager.matchSettings.startingRockets;
-        ammoDisplay.setHealth(health);
-        ammoDisplay.setRockets(rockets);
-        ammoDisplay.setBullets(bullets);
+        playerHud.SetHealth(health);
+        playerHud.SetRockets(rockets);
+        playerHud.SetBullets(bullets);
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
             disableOnDeath[i].enabled = wasEnabled[i];
@@ -177,14 +191,19 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    IEnumerator Respawn()
+    private void PlaceAsSpectator()
     {
-        yield return new WaitForSeconds(1f);
         transform.position = gameManager.spectatorPoint.position;
         this.GetComponent<PlayerLook>().SetRotation(gameManager.spectatorPoint.rotation.eulerAngles.x, gameManager.spectatorPoint.rotation.eulerAngles.y);
+    }
+
+    IEnumerator Respawn()
+    {
+        playerHud.SetLives(livesLeft);
+        yield return new WaitForSeconds(1f);
+        PlaceAsSpectator();
         yield return new WaitForSeconds(gameManager.matchSettings.respawnTime);
         int spawnPointIndex = Random.Range(0, gameManager.spawnPoints.Length);
-
         SetDefaults();
         transform.position = gameManager.spawnPoints[spawnPointIndex].position;
         float xrotation = gameManager.spawnPoints[spawnPointIndex].rotation.eulerAngles.x;

@@ -3,7 +3,7 @@ using UnityEngine;
 public class RocketExplosionScript : MonoBehaviour
 {
     private float blastRadius = 5;
-    private float explosionForce = 30;
+    private float explosionForce = 25;
     /** Number of damage that will be inflicted for each hit */
     private float baseDamage = 8;
     /** Number of damage that will be inflicted variably depending on how far away the person is */

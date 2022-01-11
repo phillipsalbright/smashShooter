@@ -7,7 +7,7 @@ public class RocketLauncherScript : MonoBehaviour
     /** Set to player holding this weapon */
     [SerializeField] private GameObject player;
     private PlayerHealth playerHealth;
-    private AmmoDisplay ammoDisplay;
+    private PlayerHudScript playerHud;
     private Transform launcherTransform;
 
     public float maxAmmo = 20;
@@ -18,7 +18,7 @@ public class RocketLauncherScript : MonoBehaviour
     {
         launcherTransform = transform;
         playerHealth = player.GetComponent<PlayerHealth>();
-        ammoDisplay = player.GetComponentInChildren<AmmoDisplay>();
+        playerHud = player.GetComponentInChildren<PlayerHudScript>();
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -30,7 +30,7 @@ public class RocketLauncherScript : MonoBehaviour
             {
                 playerHealth.rockets--;
                 SpawnRocket();
-                ammoDisplay.setRockets(playerHealth.rockets);
+                playerHud.SetRockets(playerHealth.rockets);
                 //play shooting sound
                 //play shooting animation
             } else

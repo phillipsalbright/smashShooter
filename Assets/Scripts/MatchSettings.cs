@@ -6,4 +6,5 @@ public class MatchSettings
     public int startingRockets = 5;
     public float startingHealth = 0;
     public int numberOfPlayers = 2;
+    public int startingLives = 3;
 }
