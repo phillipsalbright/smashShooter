@@ -32,8 +32,6 @@ public class PlayerLook : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         sensitivity = PlayerPrefs.GetFloat("Sensitivity", .5f) * 2f;
         sensitivityX = 1;
         sensitivityY = 1;

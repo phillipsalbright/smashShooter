@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerHealth : MonoBehaviour
 {
     private PlayerHudScript playerHud;
+    [SerializeField] private GameObject wholePlayer;
 
     public bool isDead { get; protected set; }
     public float health { get; protected set; }
@@ -37,19 +38,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        playerHud = GetComponentInChildren<PlayerHudScript>();
+        inputGetter.DeactivateInput();
         gameManager = GameManager.instance;
-        livesLeft = gameManager.matchSettings.startingLives;
-        playerNumber = gameManager.GetNextPlayerNumber();
-        transform.position = gameManager.startPoint.position;
-        float xrotation = gameManager.startPoint.rotation.eulerAngles.x;
-        float yrotation = gameManager.startPoint.rotation.eulerAngles.y;
-        this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
-        Setup();
+        playerNumber = gameManager.PlayerHasJoined(wholePlayer);
+        playerHud = GetComponentInChildren<PlayerHudScript>();
     }
 
     public void Setup()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        livesLeft = gameManager.matchSettings.startingLives;
+        Transform initialSpawnPoint = gameManager.GetInitialSpawnPoint();
+        transform.position = initialSpawnPoint.position;
+        float xrotation = initialSpawnPoint.rotation.eulerAngles.x;
+        float yrotation = initialSpawnPoint.rotation.eulerAngles.y;
+        this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
         playerHud.SetLives(livesLeft);
         wasEnabled = new bool[disableOnDeath.Length];
         for (int i = 0; i < wasEnabled.Length; i++)
@@ -110,7 +114,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerHud.UpdateHudForDeath();
             PlaceAsSpectator();
-            // Tell manager this player has been knocked out
+            gameManager.PlayerDied();
         }
     }
 
@@ -193,8 +197,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void PlaceAsSpectator()
     {
-        transform.position = gameManager.spectatorPoint.position;
-        this.GetComponent<PlayerLook>().SetRotation(gameManager.spectatorPoint.rotation.eulerAngles.x, gameManager.spectatorPoint.rotation.eulerAngles.y);
+        Transform spectatorPoint = gameManager.GetSpectatorPoint();
+        transform.position = spectatorPoint.position;
+        this.GetComponent<PlayerLook>().SetRotation(spectatorPoint.rotation.eulerAngles.x, spectatorPoint.rotation.eulerAngles.y);
     }
 
     IEnumerator Respawn()
@@ -203,11 +208,11 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(1f);
         PlaceAsSpectator();
         yield return new WaitForSeconds(gameManager.matchSettings.respawnTime);
-        int spawnPointIndex = Random.Range(0, gameManager.spawnPoints.Length);
+        Transform spawnPoint = gameManager.GetSpawnPoint();
         SetDefaults();
-        transform.position = gameManager.spawnPoints[spawnPointIndex].position;
-        float xrotation = gameManager.spawnPoints[spawnPointIndex].rotation.eulerAngles.x;
-        float yrotation = gameManager.spawnPoints[spawnPointIndex].rotation.eulerAngles.y;
+        transform.position = spawnPoint.position;
+        float xrotation = spawnPoint.rotation.eulerAngles.x;
+        float yrotation = spawnPoint.rotation.eulerAngles.y;
         this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
         for (int i = 0; i < models.Length; i++) {
             models[i].enabled = true;

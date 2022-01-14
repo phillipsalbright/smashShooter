@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /**
  * This class is connected to a GameObject in the mainmenu scene and contains methods to be
@@ -10,7 +11,18 @@ using UnityEngine.SceneManagement;
 public class MainMenuObject : MonoBehaviour
 {
     public GameObject[] menuScreens;
-    
+
+    [SerializeField] private GameObject gameManager;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (FindObjectOfType<GameManager>() == null)
+        {
+            Instantiate(gameManager);
+        }
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -31,5 +43,10 @@ public class MainMenuObject : MonoBehaviour
     public void LoadScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void SetupPlayerControls()
+    {
+        GameManager.instance.GetPlayerControls(GameManager.instance.matchSettings.numberOfPlayers);
     }
 }

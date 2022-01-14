@@ -243,7 +243,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 4
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -366,10 +366,6 @@ PrefabInstance:
     - target: {fileID: 5878717514810638012, guid: e26180367dc82374b95c294255849f05, type: 3}
       propertyPath: m_Name
       value: MainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853146655744019009, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e26180367dc82374b95c294255849f05, type: 3}
