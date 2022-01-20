@@ -155,6 +155,5 @@ public class PlayerMovement : MonoBehaviour
     public void Pause(InputAction.CallbackContext context)
     {
         paused = context.action.triggered;
-        Debug.Log(paused);
     }
 }
