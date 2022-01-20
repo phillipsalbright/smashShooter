@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform orientation;
     /** Rigidbody of the player */
     public Rigidbody player;
+    private bool paused;
 
     void Start()
     {
@@ -65,6 +66,11 @@ public class PlayerMovement : MonoBehaviour
         if (jumped && isGrounded)
         {
             Jump();
+        }
+        if (paused)
+        {
+            GameManager.instance.PauseGame();
+            paused = false;
         }
     }
 
@@ -144,5 +150,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        paused = context.action.triggered;
+        Debug.Log(paused);
     }
 }

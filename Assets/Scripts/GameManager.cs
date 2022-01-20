@@ -22,8 +22,12 @@ public class GameManager : MonoBehaviour
     private Transform startPoint;
 
     private PlayerInputManager playerInputManager;
+    [SerializeField] private GameObject pauseMenu;
 
     private int playerCounter = 1;
+
+    private bool inGame;
+    private bool paused;
 
     [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text text;
@@ -32,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        paused = false;
+        inGame = false;
         if (instance != null)
         {
             Destroy(this);  
@@ -41,6 +47,8 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
         playerInputManager = this.GetComponentInChildren<PlayerInputManager>();
+        matchSettings.numberOfPlayers = PlayerPrefs.GetInt("NumberOfPlayers", 2);
+        matchSettings.startingLives = PlayerPrefs.GetInt("NumberOfLives", 3);
     }
 
     public int PlayerHasJoined(GameObject player)
@@ -64,7 +72,7 @@ public class GameManager : MonoBehaviour
         cancelPlayerSelectButton.gameObject.SetActive(true);
         cancelPlayerSelectButton.GetComponentInChildren<Text>().text = "cancel";
         matchSettings.numberOfPlayers = numberOfPlayers;
-        for (int i = 0; i < playerCounter; i++)
+        for (int i = 0; i < playerCounter; i++) 
         {
             Destroy(players[i]);
         }
@@ -77,6 +85,7 @@ public class GameManager : MonoBehaviour
 
     public void CancelPlayerControlAssignment()
     {
+        matchSettings.numberOfPlayers = playerCounter;
         playerInputManager.DisableJoining();
         cancelPlayerSelectButton.gameObject.SetActive(false);
         canvas.gameObject.SetActive(false);
@@ -84,6 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void StartMatch()
     {
+        inGame = true;
         knockedOutPlayers = 0;
         text.text = "";
         canvas.gameObject.SetActive(true);
@@ -139,7 +149,7 @@ public class GameManager : MonoBehaviour
     IEnumerator GameOver()
     {
         int winningPlayer = 0;
-        for (int i = 0; i < knockedOutPlayers; i++)
+        for (int i = 0; i <= knockedOutPlayers; i++)
         {
             if (players[i].GetComponentInChildren<PlayerHealth>().livesLeft != 0)
             {
@@ -156,6 +166,70 @@ public class GameManager : MonoBehaviour
         //maybe make an end game menu here
         canvas.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
+        for (int i = 0; i < knockedOutPlayers; i++)
+        {
+            players[i].GetComponentInChildren<PlayerHealth>();
+        }
+        inGame = false;
+        SceneManager.LoadScene(0);
+        canvas.gameObject.SetActive(false);
+    }
+
+    /**
+    public void PauseGame()
+    {
+        if (!inGame)
+        {
+            for (int i = 0; i < playerCounter; i++)
+            {
+                players[i].GetComponentInChildren<PlayerInput>().DeactivateInput();
+            }
+            Cursor.lockState = CursorLockMode.None;
+            pauseMenu.SetActive(true);
+        }
+    }
+    */
+
+    public void PauseGame()
+    {
+        if (inGame)
+        {
+            if (!paused)
+            {
+                for (int i = 0; i < playerCounter; i++)
+                {
+                    players[i].GetComponentInChildren<PlayerInput>().DeactivateInput();
+                }
+                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                ResumeGame();
+            }
+        }
+    }
+
+    public void ResumeGame()
+    {
+        Debug.Log("frogs");
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        for (int i = 0; i < playerCounter; i++)
+        {
+            players[i].GetComponentInChildren<PlayerInput>().ActivateInput();
+        }
+    }
+
+    public void QuitGame()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 1;
+
+        pauseMenu.SetActive(false);
         SceneManager.LoadScene(0);
         canvas.gameObject.SetActive(false);
     }

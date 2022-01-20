@@ -3,15 +3,30 @@ using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
-    public void SetDifficulty(int difficulty)
-    {
+    private int SensitivityNumber;
 
-        PlayerPrefs.SetInt("Difficulty", difficulty);
+    public void SetPlayerNumber(int numberOfPlayers)
+    {
+        GameManager.instance.matchSettings.numberOfPlayers = numberOfPlayers + 1;
+        PlayerPrefs.SetInt("NumberOfPlayers", numberOfPlayers + 1);
+    }
+
+    public void SetLives(int lives)
+    {
+        GameManager.instance.matchSettings.startingLives = lives + 1;
+        PlayerPrefs.SetInt("NumberOfLives", lives + 1);
     }
 
     public void SetSensitivity(System.Single sensitivity)
     {
-        PlayerPrefs.SetFloat("Sensitivity", sensitivity);
+        PlayerPrefs.SetFloat("Sensitivity" + SensitivityNumber, sensitivity);
+    }
+
+    public void SetSensitivityPlayer(int playerNumber)
+    {
+        SensitivityNumber = playerNumber + 1;
+        GameObject.Find("Sensitivity").GetComponent<Slider>().value = PlayerPrefs.GetFloat("Sensitivity" + SensitivityNumber, .5f);
+        PlayerPrefs.SetInt("PlayerSensitivityBarNumber", SensitivityNumber);
     }
 
     public void SavePrefs()
@@ -24,7 +39,11 @@ public class Settings : MonoBehaviour
      */
     void Awake()
     {
-        GameObject.Find("Sensitivity").GetComponent<Slider>().value = PlayerPrefs.GetFloat("Sensitivity", .5f);
+        SensitivityNumber = PlayerPrefs.GetInt("PlayerSensitivityBarNumber", 1);
+        GameObject.Find("PlayerSensitivityNumber").GetComponent<TMPro.TMP_Dropdown>().value = SensitivityNumber - 1;
+        GameObject.Find("Sensitivity").GetComponent<Slider>().value = PlayerPrefs.GetFloat("Sensitivity" + SensitivityNumber, .5f);
+        GameObject.Find("NumberOfPlayers").GetComponent<TMPro.TMP_Dropdown>().value = PlayerPrefs.GetInt("NumberOfPlayers", 2) - 1;
+        GameObject.Find("Number of Lives").GetComponent<TMPro.TMP_Dropdown>().value = PlayerPrefs.GetInt("NumberOfLives", 3) - 1;
     }
     /** Example code from a video for reference:
     // Start is called before the first frame update

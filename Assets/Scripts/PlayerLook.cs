@@ -30,14 +30,14 @@ public class PlayerLook : MonoBehaviour
     /** If player hitbox is not symmetrical on x/z plane, would have to change to rotate whole player */
     [SerializeField] private Transform orientation;
 
-    void Start()
+    public void SetupLook()
     {
-        sensitivity = PlayerPrefs.GetFloat("Sensitivity", .5f) * 2f;
+        sensitivity = PlayerPrefs.GetFloat("Sensitivity" + this.gameObject.GetComponent<PlayerHealth>().playerNumber, .5f) * 2f;
         sensitivityX = 1;
         sensitivityY = 1;
         if (sensitivity <= 0)
         {
-            sensitivity = 1;
+            sensitivity = .1f;
         }
     }
 

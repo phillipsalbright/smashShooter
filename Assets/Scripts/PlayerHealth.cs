@@ -46,6 +46,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Setup()
     {
+        playerHud.UndoDeathHud();
+        this.gameObject.GetComponent<PlayerLook>().SetupLook();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         livesLeft = gameManager.matchSettings.startingLives;
@@ -59,6 +61,10 @@ public class PlayerHealth : MonoBehaviour
         for (int i = 0; i < wasEnabled.Length; i++)
         {
             wasEnabled[i] = disableOnDeath[i].enabled;
+        }
+        for (int i = 0; i < models.Length; i++)
+        {
+            models[i].enabled = true;
         }
         SetDefaults();
     }
@@ -181,9 +187,10 @@ public class PlayerHealth : MonoBehaviour
         playerHud.SetBullets(bullets);
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
-            disableOnDeath[i].enabled = wasEnabled[i];
+            //disableOnDeath[i].enabled = wasEnabled[i];
+            disableOnDeath[i].enabled = true;
         }
-
+        weaponHolder.SetActive(true);
         Collider col = GetComponent<Collider>();
         if (col != null)
         {
