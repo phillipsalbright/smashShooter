@@ -12,13 +12,18 @@ public class RocketLauncherScript : MonoBehaviour
 
     public float maxAmmo = 20;
     private float nextTimeToFire = 0f;
-    private float fireRate = 1;
+    private float fireRate = .9f;
+    private float projectileSpeed = 12;
+    private Animator animator;
+    private AudioSource shootSound;
 
     void Awake()
     {
         launcherTransform = transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         playerHud = player.GetComponentInChildren<PlayerHudScript>();
+        animator = GetComponent<Animator>();
+        shootSound = GetComponent<AudioSource>();
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -30,9 +35,9 @@ public class RocketLauncherScript : MonoBehaviour
             {
                 playerHealth.rockets--;
                 SpawnRocket();
+                animator.SetTrigger("ShootRocket");
                 playerHud.SetRockets(playerHealth.rockets);
-                //play shooting sound
-                //play shooting animation
+                shootSound.Play();
             } else
             {
                 //play not shooting sound
@@ -54,7 +59,7 @@ public class RocketLauncherScript : MonoBehaviour
     void SpawnRocket()
     {
         GameObject launchedRocket = Instantiate(rocket, launcherTransform.transform.TransformPoint(0, 0, 0), launcherTransform.rotation);
-        launchedRocket.GetComponent<Rigidbody>().AddForce(launcherTransform.forward * -8.0f, ForceMode.Impulse);
+        launchedRocket.GetComponent<Rigidbody>().AddForce(launcherTransform.forward * -projectileSpeed, ForceMode.Impulse);
         Physics.IgnoreCollision(launchedRocket.GetComponent<Collider>(), player.GetComponent<Collider>());
     }
 }

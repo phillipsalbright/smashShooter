@@ -236,10 +236,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeWeapon
       objectReference: {fileID: 0}
-    - target: {fileID: 1209064313412475706, guid: ceb9a7335158c71429b23d8d75245e46, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4247605279661596245, guid: ceb9a7335158c71429b23d8d75245e46, type: 3}
       propertyPath: raycastPosition
       value: 

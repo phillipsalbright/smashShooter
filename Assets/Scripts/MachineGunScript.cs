@@ -10,11 +10,13 @@ public class MachineGunScript : MonoBehaviour
     private PlayerHealth playerHealth;
     private PlayerHudScript playerHud;
     private Transform machineGunTransform;
-    private float bulletSpeed = 12.0f;
+    private float bulletSpeed = 20.0f;
     public float maxAmmo = 100;
     private bool buttonDown = false;
     private float fireRate = 5;
     private float nextTimeToFire;
+    private Animator animator;
+    private AudioSource shootSound;
 
     // Start is called before the first frame update
     void Awake()
@@ -22,6 +24,8 @@ public class MachineGunScript : MonoBehaviour
         machineGunTransform = transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         playerHud = player.GetComponentInChildren<PlayerHudScript>();
+        animator = GetComponent<Animator>();
+        shootSound = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -33,12 +37,13 @@ public class MachineGunScript : MonoBehaviour
             {
                 playerHealth.bullets--;
                 SpawnBullet();
+                animator.SetBool("Shoot", true);
                 playerHud.SetBullets(playerHealth.bullets);
-                // play shoot sound
-                // play shoot animation
+                shootSound.Play();
             }
             else
             {
+                animator.SetBool("Shoot", false);
                 //play out of ammo sound
             }
         }
@@ -65,17 +70,17 @@ public class MachineGunScript : MonoBehaviour
         }
     }
     */
-
+    /** old not used
     IEnumerator Shooting()
     {
         while (buttonDown && this.gameObject.activeInHierarchy == true) {
             if (playerHealth.bullets > 0)
             {
                 playerHealth.bullets--;
+                animator.Play("MachineGunShoot");
                 SpawnBullet();
                 playerHud.SetBullets(playerHealth.bullets);
                 // play shoot sound
-                // play shoot animation
             } else
             {
                 //play out of ammo sound
@@ -83,6 +88,7 @@ public class MachineGunScript : MonoBehaviour
             yield return new WaitForSeconds(1f / fireRate);
         }
     }
+    */
 
     void SpawnBullet()
     {
