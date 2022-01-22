@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
 
     private Transform spectatorPoint;
 
-    private Transform startPoint;
-
     private PlayerInputManager playerInputManager;
     [SerializeField] private GameObject pauseMenu;
 
@@ -100,7 +98,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Countdown());
         levelInfoHolder = LevelInfoHolder.instance;
         spawnPoints = levelInfoHolder.spawnPoints;
-        startPoint = levelInfoHolder.startPoint;
         spectatorPoint = levelInfoHolder.spectatorPoint;
         for (int i = 0; i < matchSettings.numberOfPlayers; i++)
         {
@@ -127,9 +124,9 @@ public class GameManager : MonoBehaviour
         return spawnPoints[spawnPointIndex];
     }
 
-    public Transform GetInitialSpawnPoint()
+    public Transform GetInitialSpawnPoint(int playerNum)
     {
-        return startPoint;
+        return spawnPoints[playerNum - 1];
     }
 
     public Transform GetSpectatorPoint()

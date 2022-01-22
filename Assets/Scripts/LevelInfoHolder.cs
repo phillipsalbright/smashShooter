@@ -13,8 +13,6 @@ public class LevelInfoHolder : MonoBehaviour
 
     public Transform spectatorPoint;
 
-    public Transform startPoint;
-
     private void Awake()
     {
         if (instance == null)

@@ -51,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         livesLeft = gameManager.matchSettings.startingLives;
-        Transform initialSpawnPoint = gameManager.GetInitialSpawnPoint();
+        Transform initialSpawnPoint = gameManager.GetInitialSpawnPoint(playerNumber);
         transform.position = initialSpawnPoint.position;
         float xrotation = initialSpawnPoint.rotation.eulerAngles.x;
         float yrotation = initialSpawnPoint.rotation.eulerAngles.y;

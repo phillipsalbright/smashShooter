@@ -21551,7 +21551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1004819743}
   m_Layer: 0
-  m_Name: StartPoint
+  m_Name: SpawnPoint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59978,7 +59978,7 @@ PrefabInstance:
       objectReference: {fileID: 1875554225}
     - target: {fileID: 5626493836320296476, guid: 1658bfa23f7007245bbc86337ea12bb2, type: 3}
       propertyPath: spawnPoints.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5626493836320296476, guid: 1658bfa23f7007245bbc86337ea12bb2, type: 3}
       propertyPath: spawnPoints.Array.data[0]
@@ -59992,6 +59992,10 @@ PrefabInstance:
       propertyPath: spawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 1686960437}
+    - target: {fileID: 5626493836320296476, guid: 1658bfa23f7007245bbc86337ea12bb2, type: 3}
+      propertyPath: spawnPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 1004819743}
     - target: {fileID: 5626493836320296477, guid: 1658bfa23f7007245bbc86337ea12bb2, type: 3}
       propertyPath: m_RootOrder
       value: 6

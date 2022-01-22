@@ -295,6 +295,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5878717513398781917, guid: e26180367dc82374b95c294255849f05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5878717513398781919, guid: e26180367dc82374b95c294255849f05, type: 3}
       propertyPath: m_Name
       value: Button1
@@ -397,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5878717515384227994, guid: e26180367dc82374b95c294255849f05, type: 3}
       propertyPath: m_Text
-      value: Testing Map
+      value: 4 rooms map
       objectReference: {fileID: 0}
     - target: {fileID: 6853146655744019009, guid: e26180367dc82374b95c294255849f05, type: 3}
       propertyPath: m_AnchorMax.y

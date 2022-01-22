@@ -14,16 +14,15 @@ public class RocketLauncherScript : MonoBehaviour
     private float nextTimeToFire = 0f;
     private float fireRate = .9f;
     private float projectileSpeed = 12;
-    private Animator animator;
-    private AudioSource shootSound;
+    [SerializeField] private Animator animator;
+    private AudioPlayer audioPlayer;
 
     void Awake()
     {
         launcherTransform = transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         playerHud = player.GetComponentInChildren<PlayerHudScript>();
-        animator = GetComponent<Animator>();
-        shootSound = GetComponent<AudioSource>();
+        audioPlayer = GetComponentInParent<AudioPlayer>();
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -37,7 +36,7 @@ public class RocketLauncherScript : MonoBehaviour
                 SpawnRocket();
                 animator.SetTrigger("ShootRocket");
                 playerHud.SetRockets(playerHealth.rockets);
-                shootSound.Play();
+                audioPlayer.PlayRocketShootSound();
             } else
             {
                 //play not shooting sound

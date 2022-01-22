@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Circle Map.unity
     guid: 7286f9372a51f014dbc77be681046865
+  - enabled: 1
+    path: Assets/Scenes/4 Rooms.unity
+    guid: 46216fb7394d9f149bcdcee9ff8fb9f7
   m_configObjects: {}

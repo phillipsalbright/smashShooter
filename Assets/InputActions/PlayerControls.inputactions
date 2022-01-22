@@ -211,6 +211,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f2303224-eb57-48f4-877a-ca56bfa24bc0",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "gamepad",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3149734d-034f-497c-ae50-5b394387a2b0",
                     "path": "<Mouse>/scroll/y",
                     "interactions": "",

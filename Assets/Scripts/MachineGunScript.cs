@@ -15,8 +15,8 @@ public class MachineGunScript : MonoBehaviour
     private bool buttonDown = false;
     private float fireRate = 5;
     private float nextTimeToFire;
-    private Animator animator;
-    private AudioSource shootSound;
+    [SerializeField] private Animator animator;
+    private AudioPlayer audioPlayer;
 
     // Start is called before the first frame update
     void Awake()
@@ -24,8 +24,7 @@ public class MachineGunScript : MonoBehaviour
         machineGunTransform = transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         playerHud = player.GetComponentInChildren<PlayerHudScript>();
-        animator = GetComponent<Animator>();
-        shootSound = GetComponent<AudioSource>();
+        audioPlayer = GetComponentInParent<AudioPlayer>();
     }
 
     void FixedUpdate()
@@ -37,13 +36,12 @@ public class MachineGunScript : MonoBehaviour
             {
                 playerHealth.bullets--;
                 SpawnBullet();
-                animator.SetBool("Shoot", true);
                 playerHud.SetBullets(playerHealth.bullets);
-                shootSound.Play();
+                audioPlayer.PlayMachineGunShootSound();
             }
             else
             {
-                animator.SetBool("Shoot", false);
+                animator.SetBool("Shooting", false);
                 //play out of ammo sound
             }
         }
@@ -51,10 +49,18 @@ public class MachineGunScript : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (context.action.triggered && this.gameObject.activeInHierarchy == true)
+        if (this.gameObject.activeInHierarchy == true)
         {
-            buttonDown = true;
-            //StartCoroutine(Shooting());
+            if (context.action.triggered)
+            {
+                buttonDown = true;
+                animator.SetBool("Shooting", true);
+                //StartCoroutine(Shooting());
+            } else
+            {
+                animator.SetBool("Shooting", false);
+                buttonDown = false;
+            }
         } else
         {
             buttonDown = false;
