@@ -33,8 +33,8 @@ public class PlayerLook : MonoBehaviour
     public void SetupLook()
     {
         sensitivity = PlayerPrefs.GetFloat("Sensitivity" + this.gameObject.GetComponent<PlayerHealth>().playerNumber, .5f) * 2f;
-        sensitivityX = 1;
-        sensitivityY = 1;
+        sensitivityX = 2.5f;
+        sensitivityY = 2.5f;
         if (sensitivity <= 0)
         {
             sensitivity = .1f;

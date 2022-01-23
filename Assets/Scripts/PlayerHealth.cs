@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public bool isDead { get; protected set; }
     public float health { get; protected set; }
     public int bullets;
-    private int maxBullets = 100;
+    private int maxBullets = 150;
     public int rockets;
     private int maxRockets = 50;
     public int livesLeft;
@@ -48,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
     {
         playerHud.UndoDeathHud();
         this.gameObject.GetComponent<PlayerLook>().SetupLook();
+        GetComponent<PlayerShoot>().buttonDown = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         livesLeft = gameManager.matchSettings.startingLives;

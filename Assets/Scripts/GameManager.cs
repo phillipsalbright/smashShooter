@@ -198,8 +198,10 @@ public class GameManager : MonoBehaviour
                     players[i].GetComponentInChildren<PlayerInput>().DeactivateInput();
                 }
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 Time.timeScale = 0;
                 pauseMenu.SetActive(true);
+                paused = true;
             }
             else
             {
@@ -214,10 +216,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         for (int i = 0; i < playerCounter; i++)
         {
             players[i].GetComponentInChildren<PlayerInput>().ActivateInput();
         }
+        paused = false;
     }
 
     public void QuitGame()

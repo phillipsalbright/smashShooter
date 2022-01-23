@@ -16,6 +16,7 @@ public class RocketLauncherScript : MonoBehaviour
     private float projectileSpeed = 12;
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
+    [SerializeField] private PlayerShoot playerShoot;
 
     void Awake()
     {
@@ -25,9 +26,9 @@ public class RocketLauncherScript : MonoBehaviour
         audioPlayer = GetComponentInParent<AudioPlayer>();
     }
 
-    public void OnShoot(InputAction.CallbackContext context)
+    void FixedUpdate()
     {
-        if (context.action.triggered && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
+        if (playerShoot.buttonDown && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             if (playerHealth.rockets > 0)

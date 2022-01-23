@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     /** Rigidbody of the player */
     public Rigidbody player;
     private bool paused;
+    private int jumpsLeft = 2;
 
     void Start()
     {
@@ -63,8 +64,17 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         //GetInput();
         ControlDrag();
+        if (isGrounded)
+        {
+            //frogs
+            jumpsLeft = 1;
+        }
         if (jumped && isGrounded)
         {
+            Jump();
+        } else if (jumped && jumpsLeft > 0)
+        {
+            jumpsLeft--;
             Jump();
         }
         if (paused)

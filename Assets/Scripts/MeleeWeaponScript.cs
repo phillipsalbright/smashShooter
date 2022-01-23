@@ -4,22 +4,23 @@ using UnityEngine.InputSystem;
 public class MeleeWeaponScript : MonoBehaviour
 {
     private float damage = 10f;
-    private float range = 2.2f;
+    private float range = 2.6f;
     private float knockbackForce = 12;
     private Animator meleeAnimator;
     private float nextTimeToAttack = 0f;
     private float attackRate = 1f;
     /** Position of the crosshair on screen, used to detect if the attack should "hit" or not */
     public GameObject raycastPosition;
+    [SerializeField] private PlayerShoot playerShoot;
     // Start is called before the first frame update
     void Awake()
     {
         meleeAnimator = GetComponent<Animator>();
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    void FixedUpdate()
     {
-        if (context.action.triggered && Time.time >= nextTimeToAttack && this.gameObject.activeInHierarchy == true)
+        if (playerShoot.buttonDown && Time.time >= nextTimeToAttack && this.gameObject.activeInHierarchy == true)
         {
             nextTimeToAttack = Time.time + 1f / attackRate;
             Attack();
