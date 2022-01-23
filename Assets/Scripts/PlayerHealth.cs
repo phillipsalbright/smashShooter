@@ -140,7 +140,7 @@ public class PlayerHealth : MonoBehaviour
                     health = newHealth;
                     playerHud.SetHealth(health);
                 }
-                Destroy(other.gameObject);
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 break;
             case 12:
                 int newBullets = bullets + 20;
@@ -153,7 +153,7 @@ public class PlayerHealth : MonoBehaviour
                     bullets = newBullets;
                     playerHud.SetBullets(bullets);
                 }
-                Destroy(other.gameObject);
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 break;
             case 11:
                 int newRockets = rockets + 5;
@@ -166,7 +166,7 @@ public class PlayerHealth : MonoBehaviour
                     rockets = newRockets;
                     playerHud.SetRockets(rockets);
                 }
-                Destroy(other.gameObject);
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 break;
             case 6:
                 Death();
