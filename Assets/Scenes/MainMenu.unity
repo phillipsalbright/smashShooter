@@ -279,38 +279,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2680671730776187650, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_Name
-      value: Button3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2680671730776187650, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919684725302200101, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_Name
-      value: Button4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919684725302200101, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5878717513398781917, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5878717513398781919, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_Name
-      value: Button1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5878717513558114443, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_Text
-      value: Big Circle Map
-      objectReference: {fileID: 0}
-    - target: {fileID: 5878717514663278939, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_Name
-      value: Button2
-      objectReference: {fileID: 0}
     - target: {fileID: 5878717514810638008, guid: e26180367dc82374b95c294255849f05, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -398,14 +366,6 @@ PrefabInstance:
     - target: {fileID: 5878717514810638012, guid: e26180367dc82374b95c294255849f05, type: 3}
       propertyPath: m_Name
       value: MainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5878717515384227994, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_Text
-      value: 4 rooms map
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853146655744019009, guid: e26180367dc82374b95c294255849f05, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e26180367dc82374b95c294255849f05, type: 3}

@@ -200,7 +200,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Controls
+  m_Text: Configure Control Scheme
 --- !u!1 &167768964809119207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,12 +1141,12 @@ GameObject:
   - component: {fileID: 3365040538358945204}
   - component: {fileID: 7431651005894733533}
   m_Layer: 5
-  m_Name: ThreePlayerButton
+  m_Name: Button3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8347486494394880056
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2102,12 +2102,12 @@ GameObject:
   - component: {fileID: 8323611250989612714}
   - component: {fileID: 6323740366177068552}
   m_Layer: 5
-  m_Name: FourPlayerButton
+  m_Name: Button4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &748779169197977870
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2740,7 +2740,7 @@ GameObject:
   - component: {fileID: 5878717513398781916}
   - component: {fileID: 5878717513398781917}
   m_Layer: 5
-  m_Name: PracticeButton
+  m_Name: Button1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2855,7 +2855,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2938,7 +2938,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2 Players
+  m_Text: Big Circle Map
 --- !u!1 &5878717513709754199
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,7 +4768,7 @@ GameObject:
   - component: {fileID: 5878717514663278936}
   - component: {fileID: 5878717514663278937}
   m_Layer: 5
-  m_Name: TwoPlayerButton
+  m_Name: Button2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5864,7 +5864,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Practice
+  m_Text: 4 rooms map
 --- !u!1 &5878717515430520552
 GameObject:
   m_ObjectHideFlags: 0
@@ -8828,7 +8828,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

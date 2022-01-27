@@ -85,6 +85,12 @@ MonoBehaviour:
   - {fileID: 2131957184701627114}
   weaponHolder: {fileID: 6041729784203117357}
   hurtImage: {fileID: 7558390941240430932, guid: 573cbb826bce73f4093a563090e184e2, type: 3}
+  playerModel: {fileID: 2131957184701627114}
+  playerColors:
+  - {fileID: 2100000, guid: 661ae9a8cf9d1ae44aa16d8c24e230a7, type: 2}
+  - {fileID: 2100000, guid: 77ff6278106b8ee41ab8939420a4afaf, type: 2}
+  - {fileID: 2100000, guid: c6e9f3ad9aee9494b8f5ecf3e5adac50, type: 2}
+  - {fileID: 2100000, guid: b9fbb6964c4ca5341a7c0db672cc2885, type: 2}
 --- !u!114 &1341684306945711385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +441,10 @@ PrefabInstance:
       propertyPath: playerShoot
       value: 
       objectReference: {fileID: 4330055785330835256}
+    - target: {fileID: 2679425581177762644, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3229627405261141344, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
       propertyPath: playerShoot
       value: 

@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
     public void PlayerDied()
     {
         knockedOutPlayers++;
-        if (knockedOutPlayers == matchSettings.numberOfPlayers - 1)
+        if (knockedOutPlayers == matchSettings.numberOfPlayers - 1 || matchSettings.numberOfPlayers == 1)
         {
             StartCoroutine(GameOver());
         }
@@ -146,6 +146,12 @@ public class GameManager : MonoBehaviour
     IEnumerator GameOver()
     {
         int winningPlayer = 0;
+        if (matchSettings.numberOfPlayers == 1)
+        {
+            // This is just used for testing with a single player. Might be useful for a practice mode or something.
+            winningPlayer = 1;
+            knockedOutPlayers = 0;
+        }
         for (int i = 0; i <= knockedOutPlayers; i++)
         {
             if (players[i].GetComponentInChildren<PlayerHealth>().livesLeft != 0)

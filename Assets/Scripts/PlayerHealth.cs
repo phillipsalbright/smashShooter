@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.InputSystem;
 
 /**
- * Class that handles player health/death calculations and manages what happens on player spawn and death. Also calls the Gun when ammo Pickups are hit.
+ * Class that handles player health/death calculations and manages what happens on player instantiation, spawn, and death. Also calls the Gun when ammo Pickups are hit.
  * Can change value of health and ammo pickups here.
  */
 public class PlayerHealth : MonoBehaviour
@@ -33,6 +33,9 @@ public class PlayerHealth : MonoBehaviour
 
     //public DeathScreen deathScreen;
     public GameObject hurtImage;
+    /** player pill model, used for changing color so they look different in the early alpha stage */
+    [SerializeField] MeshRenderer playerModel;
+    [SerializeField] Material[] playerColors;
 
     GameManager gameManager;
 
@@ -42,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         gameManager = GameManager.instance;
         playerNumber = gameManager.PlayerHasJoined(wholePlayer);
         playerHud = GetComponentInChildren<PlayerHudScript>();
+        playerModel.material = playerColors[playerNumber - 1];
     }
 
     public void Setup()
