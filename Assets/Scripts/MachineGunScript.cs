@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MachineGunScript : MonoBehaviour
+public class MachineGunScript : Weapon
 {
     public GameObject bullet;
     /** Set to player holding this weapon */
@@ -14,7 +14,6 @@ public class MachineGunScript : MonoBehaviour
     private float nextTimeToFire;
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
-    [SerializeField] private PlayerShoot playerShoot;
 
     void Awake()
     {
@@ -26,7 +25,7 @@ public class MachineGunScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerShoot.buttonDown && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
+        if (attacking && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             if (playerHealth.bullets > 0)
@@ -36,7 +35,7 @@ public class MachineGunScript : MonoBehaviour
                     animator.SetBool("Shooting", true);
                 }
                 playerHealth.bullets--;
-                SpawnBullet();
+                Attack();
                 playerHud.SetBullets(playerHealth.bullets);
                 audioPlayer.PlayMachineGunShootSound();
             }
@@ -45,13 +44,13 @@ public class MachineGunScript : MonoBehaviour
                 animator.SetBool("Shooting", false);
                 //play out of ammo sound
             }
-        } else if (!playerShoot.buttonDown)
+        } else if (!attacking)
         {
             animator.SetBool("Shooting", false);
         }
     }
 
-    void SpawnBullet()
+    public override void Attack()
     {
         Vector3 v = machineGunTransform.rotation.eulerAngles;
         GameObject shotBullet = Instantiate(bullet, machineGunTransform.transform.TransformPoint(0, .025f, -.2139f), Quaternion.Euler(v.x + 180f, v.y, v.z));

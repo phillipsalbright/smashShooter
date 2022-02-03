@@ -177,9 +177,9 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4330055785330835256}
-        m_TargetAssemblyTypeName: PlayerShoot, Assembly-CSharp
-        m_MethodName: OnShoot
+      - m_Target: {fileID: 3740659861880778266}
+        m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
+        m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonDown: 0
+  weaponManager: {fileID: 3740659861880778266}
 --- !u!33 &6339101615050335858
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -437,18 +438,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1341684306945711384}
-    - target: {fileID: 1497336825523086255, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: playerShoot
-      value: 
-      objectReference: {fileID: 4330055785330835256}
-    - target: {fileID: 2679425581177762644, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3229627405261141344, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: playerShoot
-      value: 
-      objectReference: {fileID: 4330055785330835256}
     - target: {fileID: 3545899114297112769, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
       propertyPath: cameraPosition
       value: 
@@ -505,10 +494,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1341684306945711384}
-    - target: {fileID: 6541990391766898419, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: playerShoot
-      value: 
-      objectReference: {fileID: 4330055785330835256}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
 --- !u!4 &3833749154192676038 stripped

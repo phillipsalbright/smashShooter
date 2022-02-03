@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class RocketLauncherScript : MonoBehaviour
+public class RocketLauncherScript : Weapon
 {
     public GameObject rocket;
     /** Set to player holding this weapon */
@@ -16,7 +15,6 @@ public class RocketLauncherScript : MonoBehaviour
     private float projectileSpeed = 12;
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
-    [SerializeField] private PlayerShoot playerShoot;
 
     void Awake()
     {
@@ -28,13 +26,13 @@ public class RocketLauncherScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerShoot.buttonDown && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
+        if (attacking && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             if (playerHealth.rockets > 0)
             {
                 playerHealth.rockets--;
-                SpawnRocket();
+                Attack();
                 animator.SetTrigger("ShootRocket");
                 playerHud.SetRockets(playerHealth.rockets);
                 audioPlayer.PlayRocketShootSound();
@@ -56,7 +54,7 @@ public class RocketLauncherScript : MonoBehaviour
     }
     */
 
-    void SpawnRocket()
+    public override void Attack()
     {
         GameObject launchedRocket = Instantiate(rocket, launcherTransform.transform.TransformPoint(0, 0, 0), launcherTransform.rotation);
         launchedRocket.GetComponent<Rigidbody>().AddForce(launcherTransform.forward * -projectileSpeed, ForceMode.Impulse);

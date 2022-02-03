@@ -1,14 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class WeaponSwitching : MonoBehaviour
+public class WeaponManager : MonoBehaviour
 {
     /** Set this within the editor for which weapon to spawn with */
     [SerializeField] public int defaultWeaponIndex;
     private int currentWeaponIndex = 0;
-    private int numberOfWeapons = 2;
+    public Weapon currentWeapon;
+    private int numberOfWeapons = 3;
     private int nextWeaponIndex;
-    public Transform[] weaponArray;
+    public Weapon[] weaponArray;
     private float switchWeaponInput;
 
     // Start is called before the first frame update
@@ -22,9 +23,11 @@ public class WeaponSwitching : MonoBehaviour
             if (i == defaultWeaponIndex)
             {
                 weaponArray[i].gameObject.SetActive(true);
+                currentWeapon = weaponArray[i];
             } else
             {
                 weaponArray[i].gameObject.SetActive(false);
+                weaponArray[i].attacking = false;
             }
         }
     }
@@ -92,7 +95,34 @@ public class WeaponSwitching : MonoBehaviour
     void SelectWeapon()
     {
         weaponArray[currentWeaponIndex].gameObject.SetActive(false);
+        weaponArray[nextWeaponIndex].attacking = false;
         weaponArray[nextWeaponIndex].gameObject.SetActive(true);
+        currentWeapon = weaponArray[nextWeaponIndex];
+        weaponArray[currentWeaponIndex].attacking = false;
         currentWeaponIndex = nextWeaponIndex;
+    }
+    
+    /**
+    public void SetAttack(bool attack)
+    {
+        attacking = attack;
+        currentWeapon.attacking = attack;
+    }
+    */
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (currentWeapon != null)
+        {
+            if (context.action.triggered)
+            {
+                currentWeapon.attacking = true;
+            }
+            else
+            {
+                currentWeapon.attacking = false;
+            }
+        }
+        
     }
 }

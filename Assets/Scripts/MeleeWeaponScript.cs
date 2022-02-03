@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class MeleeWeaponScript : MonoBehaviour
+public class MeleeWeaponScript : Weapon
 {
     private float damage = 10f;
     private float range = 2.6f;
@@ -11,7 +10,6 @@ public class MeleeWeaponScript : MonoBehaviour
     private float attackRate = 1f;
     /** Position of the crosshair on screen, used to detect if the attack should "hit" or not */
     public GameObject raycastPosition;
-    [SerializeField] private PlayerShoot playerShoot;
     // Start is called before the first frame update
     void Awake()
     {
@@ -20,8 +18,9 @@ public class MeleeWeaponScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerShoot.buttonDown && Time.time >= nextTimeToAttack && this.gameObject.activeInHierarchy == true)
+        if (attacking && Time.time >= nextTimeToAttack && this.gameObject.activeInHierarchy == true)
         {
+            Debug.Log("frogs1");
             nextTimeToAttack = Time.time + 1f / attackRate;
             Attack();
         }
@@ -39,8 +38,9 @@ public class MeleeWeaponScript : MonoBehaviour
     }
     */
 
-    private void Attack()
+    public override void Attack()
     {
+        Debug.Log("frogs");
         meleeAnimator.SetTrigger("Attack");
         RaycastHit hit;
         if (Physics.Raycast(raycastPosition.transform.position, raycastPosition.transform.forward, out hit, range))
