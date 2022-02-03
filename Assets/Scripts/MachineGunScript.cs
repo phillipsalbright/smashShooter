@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using System.Collections;
 
 public class MachineGunScript : MonoBehaviour
 {
@@ -10,77 +8,46 @@ public class MachineGunScript : MonoBehaviour
     private PlayerHealth playerHealth;
     private PlayerHudScript playerHud;
     private Transform machineGunTransform;
-    private float bulletSpeed = 12.0f;
+    private float bulletSpeed = 32.0f;
     public float maxAmmo = 100;
-    private bool buttonDown = false;
-    private float fireRate = 5;
+    private float fireRate = 9;
     private float nextTimeToFire;
+    [SerializeField] private Animator animator;
+    private AudioPlayer audioPlayer;
+    [SerializeField] private PlayerShoot playerShoot;
 
-    // Start is called before the first frame update
     void Awake()
     {
         machineGunTransform = transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         playerHud = player.GetComponentInChildren<PlayerHudScript>();
+        audioPlayer = GetComponentInParent<AudioPlayer>();
     }
 
     void FixedUpdate()
     {
-        if (buttonDown && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
+        if (playerShoot.buttonDown && this.gameObject.activeInHierarchy == true && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             if (playerHealth.bullets > 0)
             {
+                if (animator.GetBool("Shooting") != true)
+                {
+                    animator.SetBool("Shooting", true);
+                }
                 playerHealth.bullets--;
                 SpawnBullet();
                 playerHud.SetBullets(playerHealth.bullets);
-                // play shoot sound
-                // play shoot animation
+                audioPlayer.PlayMachineGunShootSound();
             }
             else
             {
+                animator.SetBool("Shooting", false);
                 //play out of ammo sound
             }
-        }
-    }
-
-    public void OnShoot(InputAction.CallbackContext context)
-    {
-        if (context.action.triggered && this.gameObject.activeInHierarchy == true)
+        } else if (!playerShoot.buttonDown)
         {
-            buttonDown = true;
-            //StartCoroutine(Shooting());
-        } else
-        {
-            buttonDown = false;
-        }
-    }
-    /**
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            SpawnBullet();
-        }
-    }
-    */
-
-    IEnumerator Shooting()
-    {
-        while (buttonDown && this.gameObject.activeInHierarchy == true) {
-            if (playerHealth.bullets > 0)
-            {
-                playerHealth.bullets--;
-                SpawnBullet();
-                playerHud.SetBullets(playerHealth.bullets);
-                // play shoot sound
-                // play shoot animation
-            } else
-            {
-                //play out of ammo sound
-            }
-            yield return new WaitForSeconds(1f / fireRate);
+            animator.SetBool("Shooting", false);
         }
     }
 

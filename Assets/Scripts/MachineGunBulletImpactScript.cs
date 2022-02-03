@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MachineGunBulletImpactScript : MonoBehaviour
 {
-    private float damage = 1;
-    private float knockbackForce = 1;
+    private float damage = 2;
+    private float knockbackForce = 1.75f;
     /** Set by machinegun when spawned */
     public Vector3 direction;
     [SerializeField] private GameObject bulletImpactEffect;

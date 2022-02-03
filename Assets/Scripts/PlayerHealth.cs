@@ -3,17 +3,18 @@ using System.Collections;
 using UnityEngine.InputSystem;
 
 /**
- * Class that handles player health/death calculations and manages what happens on player spawn and death. Also calls the Gun when ammo Pickups are hit.
+ * Class that handles player health/death calculations and manages what happens on player instantiation, spawn, and death. Also calls the Gun when ammo Pickups are hit.
  * Can change value of health and ammo pickups here.
  */
 public class PlayerHealth : MonoBehaviour
 {
     private PlayerHudScript playerHud;
+    [SerializeField] private GameObject wholePlayer;
 
     public bool isDead { get; protected set; }
     public float health { get; protected set; }
     public int bullets;
-    private int maxBullets = 100;
+    private int maxBullets = 150;
     public int rockets;
     private int maxRockets = 50;
     public int livesLeft;
@@ -32,29 +33,43 @@ public class PlayerHealth : MonoBehaviour
 
     //public DeathScreen deathScreen;
     public GameObject hurtImage;
+    /** player pill model, used for changing color so they look different in the early alpha stage */
+    [SerializeField] MeshRenderer playerModel;
+    [SerializeField] Material[] playerColors;
 
     GameManager gameManager;
 
     private void Start()
     {
-        playerHud = GetComponentInChildren<PlayerHudScript>();
+        inputGetter.DeactivateInput();
         gameManager = GameManager.instance;
-        livesLeft = gameManager.matchSettings.startingLives;
-        playerNumber = gameManager.GetNextPlayerNumber();
-        transform.position = gameManager.startPoint.position;
-        float xrotation = gameManager.startPoint.rotation.eulerAngles.x;
-        float yrotation = gameManager.startPoint.rotation.eulerAngles.y;
-        this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
-        Setup();
+        playerNumber = gameManager.PlayerHasJoined(wholePlayer);
+        playerHud = GetComponentInChildren<PlayerHudScript>();
+        playerModel.material = playerColors[playerNumber - 1];
     }
 
     public void Setup()
     {
+        playerHud.UndoDeathHud();
+        this.gameObject.GetComponent<PlayerLook>().SetupLook();
+        GetComponent<PlayerShoot>().buttonDown = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        livesLeft = gameManager.matchSettings.startingLives;
+        Transform initialSpawnPoint = gameManager.GetInitialSpawnPoint(playerNumber);
+        transform.position = initialSpawnPoint.position;
+        float xrotation = initialSpawnPoint.rotation.eulerAngles.x;
+        float yrotation = initialSpawnPoint.rotation.eulerAngles.y;
+        this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
         playerHud.SetLives(livesLeft);
         wasEnabled = new bool[disableOnDeath.Length];
         for (int i = 0; i < wasEnabled.Length; i++)
         {
             wasEnabled[i] = disableOnDeath[i].enabled;
+        }
+        for (int i = 0; i < models.Length; i++)
+        {
+            models[i].enabled = true;
         }
         SetDefaults();
     }
@@ -110,7 +125,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerHud.UpdateHudForDeath();
             PlaceAsSpectator();
-            // Tell manager this player has been knocked out
+            gameManager.PlayerDied();
         }
     }
 
@@ -130,7 +145,7 @@ public class PlayerHealth : MonoBehaviour
                     health = newHealth;
                     playerHud.SetHealth(health);
                 }
-                Destroy(other.gameObject);
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 break;
             case 12:
                 int newBullets = bullets + 20;
@@ -143,7 +158,7 @@ public class PlayerHealth : MonoBehaviour
                     bullets = newBullets;
                     playerHud.SetBullets(bullets);
                 }
-                Destroy(other.gameObject);
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 break;
             case 11:
                 int newRockets = rockets + 5;
@@ -156,7 +171,7 @@ public class PlayerHealth : MonoBehaviour
                     rockets = newRockets;
                     playerHud.SetRockets(rockets);
                 }
-                Destroy(other.gameObject);
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 break;
             case 6:
                 Death();
@@ -177,9 +192,10 @@ public class PlayerHealth : MonoBehaviour
         playerHud.SetBullets(bullets);
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
-            disableOnDeath[i].enabled = wasEnabled[i];
+            //disableOnDeath[i].enabled = wasEnabled[i];
+            disableOnDeath[i].enabled = true;
         }
-
+        weaponHolder.SetActive(true);
         Collider col = GetComponent<Collider>();
         if (col != null)
         {
@@ -193,8 +209,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void PlaceAsSpectator()
     {
-        transform.position = gameManager.spectatorPoint.position;
-        this.GetComponent<PlayerLook>().SetRotation(gameManager.spectatorPoint.rotation.eulerAngles.x, gameManager.spectatorPoint.rotation.eulerAngles.y);
+        Transform spectatorPoint = gameManager.GetSpectatorPoint();
+        transform.position = spectatorPoint.position;
+        this.GetComponent<PlayerLook>().SetRotation(spectatorPoint.rotation.eulerAngles.x, spectatorPoint.rotation.eulerAngles.y);
     }
 
     IEnumerator Respawn()
@@ -203,11 +220,11 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(1f);
         PlaceAsSpectator();
         yield return new WaitForSeconds(gameManager.matchSettings.respawnTime);
-        int spawnPointIndex = Random.Range(0, gameManager.spawnPoints.Length);
+        Transform spawnPoint = gameManager.GetSpawnPoint();
         SetDefaults();
-        transform.position = gameManager.spawnPoints[spawnPointIndex].position;
-        float xrotation = gameManager.spawnPoints[spawnPointIndex].rotation.eulerAngles.x;
-        float yrotation = gameManager.spawnPoints[spawnPointIndex].rotation.eulerAngles.y;
+        transform.position = spawnPoint.position;
+        float xrotation = spawnPoint.rotation.eulerAngles.x;
+        float yrotation = spawnPoint.rotation.eulerAngles.y;
         this.GetComponent<PlayerLook>().SetRotation(xrotation, yrotation);
         for (int i = 0; i < models.Length; i++) {
             models[i].enabled = true;

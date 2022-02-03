@@ -50,4 +50,9 @@ public class PlayerHudScript : MonoBehaviour
         ClearHud();
         deathText.gameObject.SetActive(true);
     }
+
+    public void UndoDeathHud()
+    {
+        deathText.gameObject.SetActive(false);
+    }
 }
