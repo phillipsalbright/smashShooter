@@ -2,45 +2,22 @@ using UnityEngine;
 
 public class MeleeWeaponScript : Weapon
 {
-    private float damage = 10f;
-    private float range = 2.6f;
-    private float knockbackForce = 12;
+    private readonly float damage = 10f;
+    private readonly float range = 2.6f;
+    private readonly float knockbackForce = 12;
     private Animator meleeAnimator;
-    private float nextTimeToAttack = 0f;
-    private float attackRate = 1f;
+    private readonly float attackRate = 1f;
     /** Position of the crosshair on screen, used to detect if the attack should "hit" or not */
     public GameObject raycastPosition;
-    // Start is called before the first frame update
+
     void Awake()
     {
         meleeAnimator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
-    {
-        if (attacking && Time.time >= nextTimeToAttack && this.gameObject.activeInHierarchy == true)
-        {
-            Debug.Log("frogs1");
-            nextTimeToAttack = Time.time + 1f / attackRate;
-            Attack();
-        }
-    }
-
-    /** old input system
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToAttack)
-        {
-            nextTimeToAttack = Time.time + 1f / attackRate;
-            Attack();
-        }
-    }
-    */
-
     public override void Attack()
     {
-        Debug.Log("frogs");
+        nextTimeToAttack = Time.time + 1f / attackRate;
         meleeAnimator.SetTrigger("Attack");
         RaycastHit hit;
         if (Physics.Raycast(raycastPosition.transform.position, raycastPosition.transform.forward, out hit, range))
@@ -61,5 +38,10 @@ public class MeleeWeaponScript : Weapon
                 hit.rigidbody.AddForce(-hit.normal * knockbackForce * multiplier, ForceMode.Impulse);
             }
         }
+    }
+
+    public override void NoLongerAttacking()
+    {
+        return;
     }
 }

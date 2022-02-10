@@ -14,9 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public bool isDead { get; protected set; }
     public float health { get; protected set; }
     public int bullets;
-    private int maxBullets = 150;
     public int rockets;
-    private int maxRockets = 50;
     public int livesLeft;
     public int playerNumber;
 
@@ -135,6 +133,7 @@ public class PlayerHealth : MonoBehaviour
         {
             case 10:
                 /** Health pack */
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 float newHealth = health - 10f;
                 if (newHealth <= 0)
                 {
@@ -145,33 +144,6 @@ public class PlayerHealth : MonoBehaviour
                     health = newHealth;
                     playerHud.SetHealth(health);
                 }
-                other.gameObject.GetComponentInParent<Pickup>().usePickup();
-                break;
-            case 12:
-                int newBullets = bullets + 20;
-                if (newBullets > maxBullets)
-                {
-                    bullets = maxBullets;
-                }
-                else
-                {
-                    bullets = newBullets;
-                    playerHud.SetBullets(bullets);
-                }
-                other.gameObject.GetComponentInParent<Pickup>().usePickup();
-                break;
-            case 11:
-                int newRockets = rockets + 5;
-                if (newRockets > maxRockets)
-                {
-                    rockets = maxRockets;
-                }
-                else
-                {
-                    rockets = newRockets;
-                    playerHud.SetRockets(rockets);
-                }
-                other.gameObject.GetComponentInParent<Pickup>().usePickup();
                 break;
             case 6:
                 Death();
@@ -185,16 +157,13 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = false;
         health = gameManager.matchSettings.startingHealth;
-        bullets = gameManager.matchSettings.startingBullets;
-        rockets = gameManager.matchSettings.startingRockets;
         playerHud.SetHealth(health);
-        playerHud.SetRockets(rockets);
-        playerHud.SetBullets(bullets);
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
             //disableOnDeath[i].enabled = wasEnabled[i];
             disableOnDeath[i].enabled = true;
         }
+        weaponHolder.GetComponent<WeaponManager>().SetWeaponDefaults();
         weaponHolder.SetActive(true);
         Collider col = GetComponent<Collider>();
         if (col != null)

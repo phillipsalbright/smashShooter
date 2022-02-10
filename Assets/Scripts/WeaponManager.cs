@@ -11,10 +11,13 @@ public class WeaponManager : MonoBehaviour
     private int nextWeaponIndex;
     public Weapon[] weaponArray;
     private float switchWeaponInput;
+    private bool attacking = false;
+    [SerializeField] private PlayerHudScript playerHud;
 
     // Start is called before the first frame update
     void Start()
     {
+        attacking = false;
         currentWeaponIndex = defaultWeaponIndex;
         nextWeaponIndex = defaultWeaponIndex;
         numberOfWeapons = weaponArray.Length;
@@ -29,6 +32,38 @@ public class WeaponManager : MonoBehaviour
                 weaponArray[i].gameObject.SetActive(false);
                 weaponArray[i].attacking = false;
             }
+        }
+    }
+
+    public void SetWeaponDefaults()
+    {
+        attacking = false;
+        weaponArray[2].ammo = GameManager.instance.matchSettings.startingRockets;
+        weaponArray[1].ammo = GameManager.instance.matchSettings.startingBullets;
+        playerHud.SetRockets(weaponArray[2].ammo);
+        playerHud.SetBullets(weaponArray[1].ammo);
+    }
+
+    private void FixedUpdate()
+    {
+        if (attacking && currentWeapon.gameObject.activeInHierarchy == true && Time.time >= currentWeapon.nextTimeToAttack)
+        {
+            currentWeapon.Attack();
+            switch (currentWeaponIndex)
+            {
+                case 1:
+                    playerHud.SetBullets(currentWeapon.ammo);
+                    break;
+                case 2:
+                    playerHud.SetRockets(currentWeapon.ammo);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (!attacking)
+        {
+            currentWeapon.NoLongerAttacking();
         }
     }
 
@@ -62,36 +97,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    /**
-    // Update is called once per frame
-    void Update()
-    {
-        float ScrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
-        if (ScrollWheelInput > 0)
-        {
-            nextWeaponIndex = (nextWeaponIndex + 1) % numberOfWeapons;
-        } else if (ScrollWheelInput < 0)
-        {
-            if (nextWeaponIndex <= 0)
-            {
-                nextWeaponIndex = numberOfWeapons - 1;
-            } else
-            {
-                nextWeaponIndex--;
-            }
-        }
-        /** Num key code for weapon switch, implement later when all weapons added.
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-          selectedWeapon = 0;
-        }
-        etc.
-        if (nextWeaponIndex != currentWeaponIndex)
-        {
-            SelectWeapon();
-        }
-    }
-    */
-
     void SelectWeapon()
     {
         weaponArray[currentWeaponIndex].gameObject.SetActive(false);
@@ -101,14 +106,6 @@ public class WeaponManager : MonoBehaviour
         weaponArray[currentWeaponIndex].attacking = false;
         currentWeaponIndex = nextWeaponIndex;
     }
-    
-    /**
-    public void SetAttack(bool attack)
-    {
-        attacking = attack;
-        currentWeapon.attacking = attack;
-    }
-    */
 
     public void OnAttack(InputAction.CallbackContext context)
     {
@@ -116,13 +113,47 @@ public class WeaponManager : MonoBehaviour
         {
             if (context.action.triggered)
             {
-                currentWeapon.attacking = true;
+                attacking = true;
             }
             else
             {
-                currentWeapon.attacking = false;
+                attacking = false;
             }
         }
-        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.gameObject.layer)
+        {
+            case 11:
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
+                int newRockets = weaponArray[2].ammo + 5;
+                if (newRockets > weaponArray[2].maxAmmo)
+                {
+                    weaponArray[2].ammo = weaponArray[2].maxAmmo;
+                }
+                else
+                {
+                    weaponArray[2].ammo = newRockets;
+                }
+                playerHud.SetRockets(weaponArray[2].ammo);
+                break;
+            case 12:
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
+                int newBullets = weaponArray[1].ammo + 20;
+                if (newBullets > weaponArray[1].maxAmmo)
+                {
+                    weaponArray[1].ammo = weaponArray[1].maxAmmo;
+                }
+                else
+                {
+                    weaponArray[1].ammo = newBullets;
+                }
+                playerHud.SetBullets(weaponArray[1].ammo);
+                break;
+            default:
+                break;
+        }
     }
 }
