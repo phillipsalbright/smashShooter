@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private MeshRenderer[] models;
     [SerializeField]
-    private GameObject weaponHolder;
+    private WeaponManager weaponHolder;
     private bool[] wasEnabled;
 
     //public DeathScreen deathScreen;
@@ -113,7 +113,7 @@ public class PlayerHealth : MonoBehaviour
         {
             models[i].enabled = false;
         }
-        weaponHolder.SetActive(false);
+        weaponHolder.enabled = true;
         livesLeft--;
         playerHud.ClearHud();
         if (livesLeft > 0)
@@ -163,8 +163,8 @@ public class PlayerHealth : MonoBehaviour
             //disableOnDeath[i].enabled = wasEnabled[i];
             disableOnDeath[i].enabled = true;
         }
-        weaponHolder.GetComponent<WeaponManager>().SetWeaponDefaults();
-        weaponHolder.SetActive(true);
+        weaponHolder.SetWeaponDefaults();
+        weaponHolder.enabled = true;
         Collider col = GetComponent<Collider>();
         if (col != null)
         {
@@ -198,6 +198,6 @@ public class PlayerHealth : MonoBehaviour
         for (int i = 0; i < models.Length; i++) {
             models[i].enabled = true;
         }
-        weaponHolder.SetActive(true);
+        weaponHolder.enabled = true;
     }
 }
