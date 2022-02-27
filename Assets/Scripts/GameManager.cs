@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private PlayerInputManager playerInputManager;
     [SerializeField] private GameObject pauseMenu;
 
-    private int playerCounter = 1;
+    private int playerCounter = 0;
 
     private bool inGame;
     private bool paused;
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text text;
     [SerializeField] private Button cancelPlayerSelectButton;
+    [SerializeField] private Button resumeButton;
     private LevelInfoHolder levelInfoHolder;
 
     private void Awake()
@@ -62,6 +63,11 @@ public class GameManager : MonoBehaviour
             CancelPlayerControlAssignment();
         }
         cancelPlayerSelectButton.GetComponentInChildren<Text>().text = "Continue with " + (playerCounter) + " players";
+        MainMenuObject mainMenu = GameObject.FindObjectOfType<MainMenuObject>();
+        if (mainMenu)
+        {
+            mainMenu.UpdatePlayerCount(playerCounter);
+        }
         return playerCounter;
     }
 
@@ -78,6 +84,11 @@ public class GameManager : MonoBehaviour
         players = new GameObject[4];
         text.text = "Click button on player 1's device";
         canvas.gameObject.SetActive(true);
+        MainMenuObject mainMenu = GameObject.FindObjectOfType<MainMenuObject>();
+        if (mainMenu)
+        {
+            mainMenu.UpdatePlayerCount(playerCounter);
+        }
         playerInputManager.EnableJoining();
     }
 
@@ -87,6 +98,13 @@ public class GameManager : MonoBehaviour
         playerInputManager.DisableJoining();
         cancelPlayerSelectButton.gameObject.SetActive(false);
         canvas.gameObject.SetActive(false);
+        GameObject playButton = GameObject.FindGameObjectWithTag("PlayButton");
+        MainMenuObject mainMenu = GameObject.FindObjectOfType<MainMenuObject>();
+        if (mainMenu)
+        {
+            mainMenu.SelectButton(playButton);
+            mainMenu.UpdatePlayerCount(playerCounter);
+        }
     }
 
     public void StartMatch()
@@ -208,6 +226,7 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 pauseMenu.SetActive(true);
                 paused = true;
+                resumeButton.Select();
             }
             else
             {
@@ -218,10 +237,10 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        Debug.Log("frogs");
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        resumeButton.Select();
         Cursor.visible = false;
         for (int i = 0; i < playerCounter; i++)
         {
@@ -239,5 +258,15 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         SceneManager.LoadScene(0);
         canvas.gameObject.SetActive(false);
+    }
+
+    public UnityEngine.UI.Button returnPlayerAssignmentButton()
+    {
+        return cancelPlayerSelectButton;
+    }
+
+    public int returnPlayerCounter()
+    {
+        return playerCounter;
     }
 }

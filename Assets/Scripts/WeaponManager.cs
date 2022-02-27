@@ -109,16 +109,13 @@ public class WeaponManager : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (currentWeapon != null)
+        if (context.performed)
         {
-            if (context.action.triggered)
-            {
-                attacking = true;
-            }
-            else
-            {
-                attacking = false;
-            }
+            attacking = true;
+        }
+        else
+        {
+            attacking = false;
         }
     }
 

@@ -96,6 +96,7 @@ public class PlayerHealth : MonoBehaviour
     public void Death()
     {
         isDead = true;
+        weaponHolder.currentWeapon.gameObject.SetActive(false);
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
             disableOnDeath[i].enabled = false;
@@ -199,5 +200,6 @@ public class PlayerHealth : MonoBehaviour
             models[i].enabled = true;
         }
         weaponHolder.enabled = true;
+        weaponHolder.currentWeapon.gameObject.SetActive(true);
     }
 }

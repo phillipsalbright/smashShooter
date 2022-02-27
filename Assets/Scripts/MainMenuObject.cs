@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -13,6 +14,10 @@ public class MainMenuObject : MonoBehaviour
     public GameObject[] menuScreens;
 
     [SerializeField] private GameObject gameManager;
+    [SerializeField] private UnityEngine.UI.Text playerCountText;
+    private int playerCounter;
+    [SerializeField] private Button defaultPlayGameScreenButton;
+    [SerializeField] private Text selectMorePlayerText;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +26,8 @@ public class MainMenuObject : MonoBehaviour
         {
             Instantiate(gameManager);
         }
+        playerCounter = GameManager.instance.returnPlayerCounter();
+        playerCountText.text = "Players " + playerCounter;
     }
 
     public void QuitGame()
@@ -48,5 +55,41 @@ public class MainMenuObject : MonoBehaviour
     public void SetupPlayerControls()
     {
         GameManager.instance.GetPlayerControls(GameManager.instance.matchSettings.numberOfPlayers);
+        SelectButton(GameObject.FindGameObjectWithTag("ControlButton"));
+    }
+
+    public void SelectButton(GameObject uiElement)
+    {
+        if (uiElement.GetComponent<UnityEngine.UI.Button>())
+        {
+            uiElement.GetComponent<UnityEngine.UI.Button>().Select();
+        } else if (uiElement.GetComponent<TMPro.TMP_Dropdown>())
+        {
+            uiElement.GetComponent<TMPro.TMP_Dropdown>().Select();
+        }
+    }
+
+    public void UpdatePlayerCount(int playerCount)
+    {
+        playerCounter = playerCount;
+        playerCountText.text = "Players: " + playerCount;
+    }
+
+    public void OnPlay()
+    {
+        if (playerCounter > 0) {
+            LoadScreen(1);
+            defaultPlayGameScreenButton.Select();
+        } else
+        {
+            StartCoroutine(SelectMorePlayers());
+        }
+    }
+
+    IEnumerator SelectMorePlayers()
+    {
+        selectMorePlayerText.text = "Please Assign Controls";
+        yield return new WaitForSeconds(5f);
+        selectMorePlayerText.text = "";
     }
 }
