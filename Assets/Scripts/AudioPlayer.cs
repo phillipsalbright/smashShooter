@@ -7,6 +7,7 @@ public class AudioPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSource rocketShootSound;
     [SerializeField] private AudioSource machineGunShootSound;
+    [SerializeField] private AudioSource airBlastShootSound;
     
     public void PlayRocketShootSound()
     {
@@ -17,5 +18,11 @@ public class AudioPlayer : MonoBehaviour
     {
         machineGunShootSound.Play();
     }
+
+    public void PlayAirBlastShootSound()
+    {
+        airBlastShootSound.Play();
+    }
+
 
 }

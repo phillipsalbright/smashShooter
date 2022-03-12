@@ -6,7 +6,7 @@ public class GameManagerSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject gameManager;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (FindObjectOfType<GameManager>() == null)
         {

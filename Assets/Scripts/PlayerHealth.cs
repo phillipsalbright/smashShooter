@@ -8,13 +8,11 @@ using UnityEngine.InputSystem;
  */
 public class PlayerHealth : MonoBehaviour
 {
-    private PlayerHudScript playerHud;
+    [SerializeField] private PlayerHudScript playerHud;
     [SerializeField] private GameObject wholePlayer;
 
     public bool isDead { get; protected set; }
     public float health { get; protected set; }
-    public int bullets;
-    public int rockets;
     public int livesLeft;
     public int playerNumber;
 
@@ -37,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
 
     GameManager gameManager;
 
-    private void Start()
+    private void Awake()
     {
         inputGetter.DeactivateInput();
         gameManager = GameManager.instance;
