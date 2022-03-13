@@ -22,9 +22,9 @@ public class PlayerHudScript : MonoBehaviour
         healthText.text = "Health: " + health;
     }
 
-    public void SetBullets(int bullets)
+    public void SetBlaster(int blasts)
     {
-        bulletText.text = "B: " + bullets;
+        bulletText.text = "B: " + blasts;
     }
 
     public void SetRockets(int rockets)

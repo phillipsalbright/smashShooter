@@ -128,7 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ff07bffec7e6d40b221b6ebb2aa8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastPosition: {fileID: 0}
+  attacking: 0
+  ammo: 0
+  nextTimeToAttack: 0
+  maxAmmo: 0
+  firingPoint: {fileID: 0}
 --- !u!95 &901978980
 Animator:
   serializedVersion: 3

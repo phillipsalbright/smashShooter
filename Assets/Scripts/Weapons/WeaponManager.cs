@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     private float switchWeaponInput;
     private bool attacking = false;
     [SerializeField] private PlayerHudScript playerHud;
+    [SerializeField] private Transform firingPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class WeaponManager : MonoBehaviour
         numberOfWeapons = weaponArray.Length;
         for (int i = 0; i < numberOfWeapons; i++)
         {
+            weaponArray[i].firingPoint = firingPoint;
             if (i == defaultWeaponIndex)
             {
                 weaponArray[i].gameObject.SetActive(true);
@@ -39,9 +41,9 @@ public class WeaponManager : MonoBehaviour
     {
         attacking = false;
         weaponArray[2].ammo = GameManager.instance.matchSettings.startingRockets;
-        weaponArray[1].ammo = GameManager.instance.matchSettings.startingBullets;
+        weaponArray[1].ammo = GameManager.instance.matchSettings.startingBlasterAmmo;
         playerHud.SetRockets(weaponArray[2].ammo);
-        playerHud.SetBullets(weaponArray[1].ammo);
+        playerHud.SetBlaster(weaponArray[1].ammo);
     }
 
     private void FixedUpdate()
@@ -52,7 +54,7 @@ public class WeaponManager : MonoBehaviour
             switch (currentWeaponIndex)
             {
                 case 1:
-                    playerHud.SetBullets(currentWeapon.ammo);
+                    playerHud.SetBlaster(currentWeapon.ammo);
                     break;
                 case 2:
                     playerHud.SetRockets(currentWeapon.ammo);
@@ -147,7 +149,7 @@ public class WeaponManager : MonoBehaviour
                 {
                     weaponArray[1].ammo = newBullets;
                 }
-                playerHud.SetBullets(weaponArray[1].ammo);
+                playerHud.SetBlaster(weaponArray[1].ammo);
                 break;
             default:
                 break;

@@ -8,4 +8,5 @@ public abstract class Weapon : MonoBehaviour
     public float nextTimeToAttack;
     public abstract void NoLongerAttacking();
     public int maxAmmo;
+    public Transform firingPoint;
 }

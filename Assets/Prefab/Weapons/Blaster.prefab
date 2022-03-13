@@ -91,13 +91,14 @@ GameObject:
   m_Component:
   - component: {fileID: 688619188616927191}
   - component: {fileID: 7230666972087633316}
+  - component: {fileID: 5135461799839729478}
   m_Layer: 0
-  m_Name: AirBlastGun
+  m_Name: Blaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &688619188616927191
 Transform:
   m_ObjectHideFlags: 0
@@ -129,6 +130,26 @@ MonoBehaviour:
   ammo: 0
   nextTimeToAttack: 0
   maxAmmo: 0
+  firingPoint: {fileID: 0}
   airBlast: {fileID: 5533104909017410346, guid: e4b4bf5c8f7cc574db1d7078ec28acaf, type: 3}
   player: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 5135461799839729478}
+--- !u!95 &5135461799839729478
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7680564179888660586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3cd5b8a9ab6671748acf119f09c35c76, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

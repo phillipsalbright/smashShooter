@@ -19,7 +19,7 @@ public class AudioPlayer : MonoBehaviour
         machineGunShootSound.Play();
     }
 
-    public void PlayAirBlastShootSound()
+    public void PlayBlasterShootSound()
     {
         airBlastShootSound.Play();
     }

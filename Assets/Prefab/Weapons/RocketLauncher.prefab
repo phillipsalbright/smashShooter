@@ -290,9 +290,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da5fa1022bda804eb2e02b5df983a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attacking: 0
+  ammo: 0
+  nextTimeToAttack: 0
+  maxAmmo: 20
+  firingPoint: {fileID: 0}
   rocket: {fileID: 8122457976235517816, guid: 494ef1450446a06439b7b265572f2175, type: 3}
   player: {fileID: 0}
-  maxAmmo: 20
   animator: {fileID: 9115063534109812300}
 --- !u!95 &9115063534109812300
 Animator:

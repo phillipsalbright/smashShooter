@@ -24,8 +24,8 @@ public class RocketLauncherScript : Weapon
         if (ammo > 0)
         {
             ammo--;
-            GameObject launchedRocket = Instantiate(rocket, launcherTransform.transform.TransformPoint(0, 0, 0), launcherTransform.rotation);
-            launchedRocket.GetComponent<Rigidbody>().AddForce(launcherTransform.forward * -projectileSpeed, ForceMode.Impulse);
+            GameObject launchedRocket = Instantiate(rocket, firingPoint.transform.TransformPoint(0, 0, 0), firingPoint.rotation * Quaternion.Euler(0, 180, 0));
+            launchedRocket.GetComponent<Rigidbody>().AddForce(firingPoint.forward * projectileSpeed, ForceMode.Impulse);
             Physics.IgnoreCollision(launchedRocket.GetComponent<Collider>(), player.GetComponent<Collider>());
             animator.SetTrigger("ShootRocket");
             audioPlayer.PlayRocketShootSound();

@@ -103,9 +103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1df5069973c0e1458b9ef3534469da5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4.5
+  moveSpeed: 4.7
   movementMultiplier: 10
-  airMultiplier: 0.2
+  airMultiplier: 0.24
   jumpForce: 14
   gravityMultiplier: 2.6
   groundDrag: 6
@@ -353,9 +353,10 @@ MonoBehaviour:
   currentWeapon: {fileID: 0}
   weaponArray:
   - {fileID: 5862505633406059920}
-  - {fileID: 7587904820409520991}
+  - {fileID: 7190597828566194138}
   - {fileID: 2829365893989475843}
   playerHud: {fileID: 8120791331493952178}
+  firingPoint: {fileID: 7125935801119296017}
 --- !u!1 &4652738898199089178
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,7 +411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5585503000873733099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0.707, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1341684306945711391}
@@ -453,7 +454,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1341684306945711391}
     m_Modifications:
-    - target: {fileID: 1497336825523086255, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+    - target: {fileID: 2179775699554133802, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1341684306945711384}
@@ -509,16 +510,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5648431478924041962, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: playerHud
-      value: 
-      objectReference: {fileID: 8120791331493952178}
     - target: {fileID: 6541990391766898419, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1341684306945711384}
-    m_RemovedComponents:
-    - {fileID: 5648431478924041962, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
 --- !u!4 &3833749154192676038 stripped
 Transform:
@@ -546,17 +542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da5fa1022bda804eb2e02b5df983a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7587904820409520991 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1497336825523086255, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-  m_PrefabInstance: {fileID: 9046109680804425968}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e5d4027640a1ee44a74cd59e54af9b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5862505633406059920 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3229627405261141344, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
@@ -566,6 +551,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91ff07bffec7e6d40b221b6ebb2aa8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7190597828566194138 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2179775699554133802, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+  m_PrefabInstance: {fileID: 9046109680804425968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd72b758c92f794281f753e46c19ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8120791331493952178 stripped
@@ -579,3 +575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1633e34256eefce44b904001088c885d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7125935801119296017 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2264840059144747745, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
+  m_PrefabInstance: {fileID: 9046109680804425968}
+  m_PrefabAsset: {fileID: 0}

@@ -7,8 +7,6 @@ public class MeleeWeaponScript : Weapon
     private readonly float knockbackForce = 12;
     private Animator meleeAnimator;
     private readonly float attackRate = 1f;
-    /** Position of the crosshair on screen, used to detect if the attack should "hit" or not */
-    public GameObject raycastPosition;
 
     void Awake()
     {
@@ -20,7 +18,7 @@ public class MeleeWeaponScript : Weapon
         nextTimeToAttack = Time.time + 1f / attackRate;
         meleeAnimator.SetTrigger("Attack");
         RaycastHit hit;
-        if (Physics.Raycast(raycastPosition.transform.position, raycastPosition.transform.forward, out hit, range))
+        if (Physics.Raycast(firingPoint.transform.position, firingPoint.transform.forward, out hit, range))
         {
             PlayerHealth target = hit.transform.GetComponent<PlayerHealth>();
             float multiplier = 1;

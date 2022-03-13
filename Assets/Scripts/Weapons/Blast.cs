@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirBlast : MonoBehaviour
+public class Blast : MonoBehaviour
 {
     private float force = 10;
     private float damage = 20;
@@ -15,7 +15,6 @@ public class AirBlast : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(1);
         if (other.gameObject.layer == 7)
         {
             GameObject player = other.gameObject;
@@ -30,6 +29,9 @@ public class AirBlast : MonoBehaviour
 
             target.GetComponent<TargetHealthScript>().TakeDamage(damage);
             target.GetComponent<Rigidbody>().AddForce(direction * multiplier * force, ForceMode.Impulse);
+        } else if (other.gameObject.layer == 3)
+        {
+            Destroy(this.gameObject);
         }
     }
 

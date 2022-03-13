@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirBlastGunScript : Weapon
+public class BlasterScript : Weapon
 {
     public GameObject airBlast;
     /** Set to player holding this weapon */
     [SerializeField] private GameObject player;
     private Transform gunTransform;
-    private readonly float fireRate = .9f;
-    private readonly float projectileSpeed = 12;
+    private readonly float fireRate = 2f;
+    private readonly float projectileSpeed = 14;
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
 
@@ -26,12 +26,12 @@ public class AirBlastGunScript : Weapon
         if (ammo > 0)
         {
             ammo--;
-            GameObject launchedProjectile = Instantiate(airBlast, gunTransform.transform.TransformPoint(0, 0, 0), gunTransform.rotation);
-            launchedProjectile.GetComponent<Rigidbody>().AddForce(gunTransform.forward * -projectileSpeed, ForceMode.Impulse);
-            launchedProjectile.GetComponent<AirBlast>().direction = gunTransform.forward * -1;
+            GameObject launchedProjectile = Instantiate(airBlast, firingPoint.TransformPoint(0, 0, 0), firingPoint.rotation * Quaternion.Euler(90, 180, 0));
+            launchedProjectile.GetComponent<Rigidbody>().AddForce(firingPoint.forward * projectileSpeed, ForceMode.Impulse);
+            launchedProjectile.GetComponent<Blast>().direction = gunTransform.forward * -1;
             Physics.IgnoreCollision(launchedProjectile.GetComponent<Collider>(), player.GetComponent<Collider>());
-            //animator.SetTrigger("ShootRocket");
-            //audioPlayer.PlayAirBlastShootSound();
+            animator.SetTrigger("ShootBlaster");
+            audioPlayer.PlayBlasterShootSound();
         }
         else
         {
