@@ -9,7 +9,7 @@ public class BlasterScript : Weapon
     [SerializeField] private GameObject player;
     private Transform gunTransform;
     private readonly float fireRate = 2f;
-    private readonly float projectileSpeed = 14;
+    private readonly float projectileSpeed = 15;
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
 

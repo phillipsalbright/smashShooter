@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Blast : MonoBehaviour
 {
-    private float force = 10;
+    private float force = 6;
     private float damage = 20;
 
     public Vector3 direction;
@@ -18,7 +18,7 @@ public class Blast : MonoBehaviour
         if (other.gameObject.layer == 7)
         {
             GameObject player = other.gameObject;
-            float multiplier = (player.GetComponent<PlayerHealth>().health / 10) + 5f;
+            float multiplier = (player.GetComponent<PlayerHealth>().health / 22) + 1.5f;
             player.GetComponent<PlayerHealth>().TakeDamage(damage);
             player.GetComponent<Rigidbody>().AddForce(direction * multiplier * force, ForceMode.Impulse);
         }
@@ -37,7 +37,7 @@ public class Blast : MonoBehaviour
 
     IEnumerator LifeTime()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.2f);
         Destroy(this.gameObject);
     }
 }

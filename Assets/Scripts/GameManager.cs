@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
     public void CancelPlayerControlAssignment()
     {
         matchSettings.numberOfPlayers = playerCounter;
+        PlayerPrefs.SetInt("NumberOfPlayers", matchSettings.numberOfPlayers);
         playerInputManager.DisableJoining();
         cancelPlayerSelectButton.gameObject.SetActive(false);
         canvas.gameObject.SetActive(false);

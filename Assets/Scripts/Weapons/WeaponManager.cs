@@ -140,7 +140,7 @@ public class WeaponManager : MonoBehaviour
                 break;
             case 12:
                 other.gameObject.GetComponentInParent<Pickup>().usePickup();
-                int newBullets = weaponArray[1].ammo + 20;
+                int newBullets = weaponArray[1].ammo + 10;
                 if (newBullets > weaponArray[1].maxAmmo)
                 {
                     weaponArray[1].ammo = weaponArray[1].maxAmmo;
