@@ -1413,6 +1413,7 @@ MonoBehaviour:
   matchSettings:
     respawnTime: 3
     startingBullets: 80
+    startingBlasterAmmo: 15
     startingRockets: 12
     startingHealth: 0
     numberOfPlayers: 2

@@ -42,8 +42,10 @@ public class WeaponManager : MonoBehaviour
         attacking = false;
         weaponArray[2].ammo = GameManager.instance.matchSettings.startingRockets;
         weaponArray[1].ammo = GameManager.instance.matchSettings.startingBlasterAmmo;
+        weaponArray[3].ammo = GameManager.instance.matchSettings.startingMagnet;
         playerHud.SetRockets(weaponArray[2].ammo);
         playerHud.SetBlaster(weaponArray[1].ammo);
+        playerHud.SetMagnet(weaponArray[3].ammo);
     }
 
     private void FixedUpdate()
@@ -58,6 +60,9 @@ public class WeaponManager : MonoBehaviour
                     break;
                 case 2:
                     playerHud.SetRockets(currentWeapon.ammo);
+                    break;
+                case 3:
+                    playerHud.SetMagnet(currentWeapon.ammo);
                     break;
                 default:
                     break;

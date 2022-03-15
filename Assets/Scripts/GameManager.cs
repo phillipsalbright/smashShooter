@@ -181,8 +181,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         players[winningPlayer - 1].GetComponentInChildren<PlayerInput>().DeactivateInput();
         yield return new WaitForSeconds(1f);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
         //enable playerinput for controlling cursor with a controller?
         text.text = "Player " + winningPlayer + " won";
         //maybe make an end game menu here
@@ -222,8 +222,8 @@ public class GameManager : MonoBehaviour
                 {
                     players[i].GetComponentInChildren<PlayerInput>().DeactivateInput();
                 }
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                //Cursor.lockState = CursorLockMode.None;
+                //Cursor.visible = true;
                 Time.timeScale = 0;
                 pauseMenu.SetActive(true);
                 paused = true;
@@ -240,9 +240,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.lockState = CursorLockMode.Locked;
         resumeButton.Select();
-        Cursor.visible = false;
+        //Cursor.visible = false;
         for (int i = 0; i < playerCounter; i++)
         {
             players[i].GetComponentInChildren<PlayerInput>().ActivateInput();
@@ -252,8 +252,8 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
         Time.timeScale = 1;
 
         pauseMenu.SetActive(false);
@@ -261,12 +261,12 @@ public class GameManager : MonoBehaviour
         canvas.gameObject.SetActive(false);
     }
 
-    public UnityEngine.UI.Button returnPlayerAssignmentButton()
+    public UnityEngine.UI.Button ReturnPlayerAssignmentButton()
     {
         return cancelPlayerSelectButton;
     }
 
-    public int returnPlayerCounter()
+    public int ReturnPlayerCounter()
     {
         return playerCounter;
     }

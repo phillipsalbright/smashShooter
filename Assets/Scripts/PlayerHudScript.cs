@@ -8,6 +8,7 @@ public class PlayerHudScript : MonoBehaviour
     [SerializeField] private Text rocketText;
     [SerializeField] private Text livesText;
     [SerializeField] private Text deathText;
+    [SerializeField] private Text magnetText;
 
     /**
     void Update()
@@ -30,6 +31,11 @@ public class PlayerHudScript : MonoBehaviour
     public void SetRockets(int rockets)
     {
         rocketText.text = "R: " + rockets;
+    }
+
+    public void SetMagnet(int laserAmmo)
+    {
+        magnetText.text = "M: " + laserAmmo;
     }
 
     public void SetLives(int lives)

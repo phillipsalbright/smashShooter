@@ -1,0 +1,117 @@
+using UnityEngine;
+
+public class MagnetGunScript : Weapon
+{
+    /** Set to player holding this weapon */
+    [SerializeField] private GameObject player;
+    private readonly float fireRate = 20;
+    [SerializeField] private Animator animator;
+    [SerializeField] private LineRenderer laser;
+    private AudioPlayer audioPlayer;
+    private float range = 30;
+    private Vector3[] positions = new Vector3[2];
+    private float damage = 1;
+    private float force = 1;
+    private float hitwidth = .008f;
+    private float normwidth = .0034f;
+    private bool activeLaser;
+    private bool attackTime;
+
+    void Awake()
+    {
+        maxAmmo = 100;
+        audioPlayer = GetComponentInParent<AudioPlayer>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (activeLaser)
+        {
+            laser.enabled = true;
+            RaycastHit hit;
+            Physics.Raycast(firingPoint.transform.position, firingPoint.transform.forward, out hit, range);
+            PlayerHealth target = null;
+            TargetHealthScript nonPlayer = null;
+            if (hit.transform)
+            {
+                target = hit.transform.GetComponent<PlayerHealth>();
+                nonPlayer = hit.transform.GetComponent<TargetHealthScript>();
+            }
+            if (target != null || nonPlayer != null)
+            {
+                positions[0] = firingPoint.position;
+                positions[1] = hit.point;
+                laser.SetPositions(positions);
+                laser.startWidth = hitwidth;
+                laser.endWidth = hitwidth;
+                if (animator.GetBool("Shooting") != true)
+                {
+                    animator.SetBool("Shooting", true);
+                    //audioPlayer.PlayMachineGunShootSound(); Play laser shooting sound
+                    // set all other sounds off
+                }
+                float multiplier = 1;
+                if (target != null)
+                {
+                    if (attackTime)
+                    {
+                        target.TakeDamage(damage);
+                        ammo--;
+                        attackTime = false;
+                    }
+                    multiplier = (target.health / 40) + .1f;
+                }
+                else if (nonPlayer != null)
+                {
+                    if (attackTime)
+                    {
+                        nonPlayer.TakeDamage(damage);
+                        ammo--;
+                        attackTime = false;
+                    }
+                    multiplier = (nonPlayer.health / 40) + .1f;
+                }
+                hit.rigidbody.AddForce(hit.normal * force * multiplier, ForceMode.Impulse );
+            }
+            else
+            {
+                positions[0] = firingPoint.position;
+                positions[1] = firingPoint.position + new Vector3(0, 0, range);
+                laser.SetPositions(positions);
+                laser.startWidth = normwidth;
+                laser.endWidth = normwidth;
+                animator.SetBool("Shooting", false);
+
+                //audioPlayer.PlayMachineGunShootSound(); turn this sound off
+
+                // play laser NOT shooting sound
+            }
+        }
+    }
+
+    public override void Attack()
+    {
+        nextTimeToAttack = Time.time + 1f / fireRate;
+        if (ammo > 0)
+        {
+            activeLaser = true;
+            attackTime = true;
+        } else
+        {
+            activeLaser = false;
+            animator.SetBool("Shooting", false);
+            laser.enabled = false;
+            //set all other sounds off
+        }
+
+
+
+    }
+    public override void NoLongerAttacking()
+    {
+        activeLaser = false;
+        animator.SetBool("Shooting", false);
+        laser.enabled = false;
+        //Set all sounds off
+    }
+}

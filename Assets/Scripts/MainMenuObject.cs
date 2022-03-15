@@ -14,7 +14,7 @@ public class MainMenuObject : MonoBehaviour
     public GameObject[] menuScreens;
 
     [SerializeField] private GameObject gameManager;
-    [SerializeField] private UnityEngine.UI.Text playerCountText;
+    [SerializeField] private Text playerCountText;
     private int playerCounter;
     [SerializeField] private Button defaultPlayGameScreenButton;
     [SerializeField] private Text selectMorePlayerText;
@@ -26,7 +26,7 @@ public class MainMenuObject : MonoBehaviour
         {
             Instantiate(gameManager);
         }
-        playerCounter = GameManager.instance.returnPlayerCounter();
+        playerCounter = GameManager.instance.ReturnPlayerCounter();
         playerCountText.text = "Players " + playerCounter;
     }
 
@@ -60,9 +60,9 @@ public class MainMenuObject : MonoBehaviour
 
     public void SelectButton(GameObject uiElement)
     {
-        if (uiElement.GetComponent<UnityEngine.UI.Button>())
+        if (uiElement.GetComponent<Button>())
         {
-            uiElement.GetComponent<UnityEngine.UI.Button>().Select();
+            uiElement.GetComponent<Button>().Select();
         } else if (uiElement.GetComponent<TMPro.TMP_Dropdown>())
         {
             uiElement.GetComponent<TMPro.TMP_Dropdown>().Select();
