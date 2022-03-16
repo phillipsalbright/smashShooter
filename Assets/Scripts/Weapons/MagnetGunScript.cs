@@ -1,4 +1,5 @@
 using UnityEngine;
+using VolumetricLines;
 
 public class MagnetGunScript : Weapon
 {
@@ -75,8 +76,9 @@ public class MagnetGunScript : Weapon
             }
             else
             {
+                Ray ray = new Ray(firingPoint.transform.position, firingPoint.transform.forward);
                 positions[0] = firingPoint.position;
-                positions[1] = firingPoint.position + new Vector3(0, 0, range);
+                positions[1] = ray.GetPoint(range);
                 laser.SetPositions(positions);
                 laser.startWidth = normwidth;
                 laser.endWidth = normwidth;
