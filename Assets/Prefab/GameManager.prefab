@@ -1202,8 +1202,8 @@ MonoBehaviour:
     respawnTime: 3
     startingBullets: 80
     startingBlasterAmmo: 15
-    startingRockets: 12
-    startingMagnet: 150
+    startingRockets: 8
+    startingMagnet: 80
     startingHealth: 0
     numberOfPlayers: 2
     startingLives: 3

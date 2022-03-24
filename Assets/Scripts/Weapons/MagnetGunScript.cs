@@ -5,22 +5,22 @@ public class MagnetGunScript : Weapon
 {
     /** Set to player holding this weapon */
     [SerializeField] private GameObject player;
-    private readonly float fireRate = 20;
+    private readonly float fireRate = 22;
     [SerializeField] private Animator animator;
     [SerializeField] private LineRenderer laser;
     private AudioPlayer audioPlayer;
-    private float range = 30;
+    private readonly float range = 30;
     private Vector3[] positions = new Vector3[2];
-    private float damage = 1;
-    private float force = 1;
-    private float hitwidth = .008f;
-    private float normwidth = .0034f;
+    private readonly float damage = 1;
+    private readonly float force = 1;
+    private readonly float hitwidth = .01f;
+    private readonly float normwidth = .0034f;
     private bool activeLaser;
     private bool attackTime;
 
     void Awake()
     {
-        maxAmmo = 100;
+        maxAmmo = 150;
         audioPlayer = GetComponentInParent<AudioPlayer>();
     }
 
@@ -60,7 +60,7 @@ public class MagnetGunScript : Weapon
                         ammo--;
                         attackTime = false;
                     }
-                    multiplier = (target.health / 40) + .1f;
+                    multiplier = (target.health / 50) + .1f;
                 }
                 else if (nonPlayer != null)
                 {
@@ -70,7 +70,7 @@ public class MagnetGunScript : Weapon
                         ammo--;
                         attackTime = false;
                     }
-                    multiplier = (nonPlayer.health / 40) + .1f;
+                    multiplier = (nonPlayer.health / 50) + .1f;
                 }
                 hit.rigidbody.AddForce(hit.normal * force * multiplier, ForceMode.Impulse );
             }

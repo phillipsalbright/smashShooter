@@ -49,6 +49,7 @@ public class PlayerHudScript : MonoBehaviour
         bulletText.text = "";
         rocketText.text = "";
         livesText.text = "";
+        magnetText.text = "";
     }
 
     public void UpdateHudForDeath()

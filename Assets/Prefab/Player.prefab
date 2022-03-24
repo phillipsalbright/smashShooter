@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeaponIndex: 0
-  currentWeapon: {fileID: 7190597828566194138}
+  currentWeapon: {fileID: 2829365893989475843}
   weaponArray:
   - {fileID: 5862505633406059920}
   - {fileID: 7190597828566194138}
@@ -467,14 +467,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1341684306945711384}
-    - target: {fileID: 4079223930186597895, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: firingPoint
-      value: 
-      objectReference: {fileID: 7125935801119296017}
-    - target: {fileID: 4550108673965667589, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4873146309035476366, guid: c77faef1126aebd4a900b3ae6fc03cd1, type: 3}
       propertyPath: m_Name
       value: CameraHolder

@@ -21,30 +21,31 @@ public class RocketExplosionScript : MonoBehaviour
         
         foreach(Collider hitcol in hitColliders)
         {
+            /**
             RaycastHit hit;
             Physics.Raycast(explosionPoint, hitcol.transform.position - explosionPoint, out hit, blastRadius);
             
             // This if statement is to stop people from being hit through walls. might have problems
             if (hit.transform && hit.transform.gameObject.layer != 3)
             {
-                float distance = (explosionPoint - hitcol.transform.position).magnitude;
-                if (distance < 1)
-                {
-                    distance = 1;
-                }
-                float multiplier = 1f;
-                if (hitcol.GetComponent<PlayerHealth>())
-                {
-                    hitcol.GetComponent<PlayerHealth>().TakeDamage(baseDamage + Mathf.RoundToInt(variableDamage / distance));
-                    multiplier = (hitcol.GetComponent<PlayerHealth>().health / 25) + .1f;
-                }
-                else if (hitcol.GetComponent<TargetHealthScript>())
-                {
-                    hitcol.GetComponent<TargetHealthScript>().TakeDamage(baseDamage + Mathf.RoundToInt(variableDamage / distance));
-                    multiplier = (hitcol.GetComponent<TargetHealthScript>().health / 25) + .1f;
-                }
-                hitcol.GetComponent<Rigidbody>().AddExplosionForce(multiplier * explosionForce, explosionPoint, blastRadius, 1, ForceMode.Impulse);
+            */
+            float distance = (explosionPoint - hitcol.transform.position).magnitude;
+            if (distance < 1)
+            {
+                distance = 1;
             }
+            float multiplier = 1f;
+            if (hitcol.GetComponent<PlayerHealth>())
+            {
+                hitcol.GetComponent<PlayerHealth>().TakeDamage(baseDamage + Mathf.RoundToInt(variableDamage / distance));
+                multiplier = (hitcol.GetComponent<PlayerHealth>().health / 25) + .1f;
+            }
+            else if (hitcol.GetComponent<TargetHealthScript>())
+            {
+                hitcol.GetComponent<TargetHealthScript>().TakeDamage(baseDamage + Mathf.RoundToInt(variableDamage / distance));
+                multiplier = (hitcol.GetComponent<TargetHealthScript>().health / 25) + .1f;
+            }
+            hitcol.GetComponent<Rigidbody>().AddExplosionForce(multiplier * explosionForce, explosionPoint, blastRadius, 1, ForceMode.Impulse);
             
         }
         Destroy(this.gameObject);

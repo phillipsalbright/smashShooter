@@ -128,36 +128,36 @@ public class WeaponManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        switch (other.gameObject.layer)
+        switch (other.gameObject.tag)
         {
-            case 11:
+            case "RocketAmmo":
                 other.gameObject.GetComponentInParent<Pickup>().usePickup();
-                int newRockets = weaponArray[2].ammo + 4;
-                if (newRockets > weaponArray[2].maxAmmo)
-                {
-                    weaponArray[2].ammo = weaponArray[2].maxAmmo;
-                }
-                else
-                {
-                    weaponArray[2].ammo = newRockets;
-                }
-                playerHud.SetRockets(weaponArray[2].ammo);
+                playerHud.SetRockets(SetNewAmmo(2, 4));
                 break;
-            case 12:
+            case "BlasterAmmo":
                 other.gameObject.GetComponentInParent<Pickup>().usePickup();
-                int newBullets = weaponArray[1].ammo + 10;
-                if (newBullets > weaponArray[1].maxAmmo)
-                {
-                    weaponArray[1].ammo = weaponArray[1].maxAmmo;
-                }
-                else
-                {
-                    weaponArray[1].ammo = newBullets;
-                }
-                playerHud.SetBlaster(weaponArray[1].ammo);
+                playerHud.SetBlaster(SetNewAmmo(1, 10));
+                break;
+            case "MagnetAmmo":
+                other.gameObject.GetComponentInParent<Pickup>().usePickup();
+                playerHud.SetMagnet(SetNewAmmo(3, 25));
                 break;
             default:
                 break;
         }
+    }
+
+    public int SetNewAmmo(int index, int amount)
+    {
+        int newAmmo = weaponArray[index].ammo + amount;
+        if (newAmmo > weaponArray[index].maxAmmo)
+        {
+            weaponArray[index].ammo = weaponArray[index].maxAmmo;
+        }
+        else
+        {
+            weaponArray[index].ammo = newAmmo;
+        }
+        return weaponArray[index].ammo;
     }
 }

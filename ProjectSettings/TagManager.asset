@@ -8,6 +8,11 @@ TagManager:
   - ControlButton
   - PauseMenu
   - PlayButton
+  - FxTemporaire
+  - MagnetAmmo
+  - HealthPack
+  - RocketAmmo
+  - BlasterAmmo
   layers:
   - Default
   - TransparentFX
