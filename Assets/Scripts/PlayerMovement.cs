@@ -9,11 +9,11 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     /** Value for speed to apply to the player */
-    public float moveSpeed;
+    public float moveSpeed = 4.7f;
     /** Multiplier to overcome drag for player speed */
-    public float movementMultiplier;
+    public float movementMultiplier = 10f;
     /** Multiplier to reduce movement speed in air */
-    public float airMultiplier;
+    public float airMultiplier = .24f;
     /** Value obtained in GetInput() for the horizontal player movement */
     private float horizontalMovement;
     /** Value obtained in GetInput() for the Vertical player movement */
@@ -24,15 +24,15 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jumping")]
     /** Force for jumping, set in editor */
-    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpForce = 14;
     /** Multiplier for gravity. Drag is used to limit X and Y movement in air, may need extra gravity because of this. */
-    [SerializeField] private float gravityMultiplier;
+    [SerializeField] private float gravityMultiplier = 2.6f;
     private bool jumped;
 
     [Header("Drag")]
     /** Ammount of drag to be applied to player movement (ground higher than air) */
-    public float groundDrag;
-    public float airDrag;
+    public float groundDrag = 6f;
+    public float airDrag = 1.5f;
 
     [Header("Ground Detection")]
     [SerializeField] private Transform groundCheck;
