@@ -18,7 +18,7 @@ public class MagnetGunScript : Weapon
     private bool activeLaser;
     private bool attackTime;
 
-    void Awake()
+    public override void Setup()
     {
         maxAmmo = 150;
         audioPlayer = GetComponentInParent<AudioPlayer>();

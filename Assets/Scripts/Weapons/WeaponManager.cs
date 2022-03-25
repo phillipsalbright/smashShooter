@@ -27,10 +27,12 @@ public class WeaponManager : MonoBehaviour
             weaponArray[i].firingPoint = firingPoint;
             if (i == defaultWeaponIndex)
             {
+                weaponArray[i].Setup();
                 weaponArray[i].gameObject.SetActive(true);
                 currentWeapon = weaponArray[i];
             } else
             {
+                weaponArray[i].Setup();
                 weaponArray[i].gameObject.SetActive(false);
                 weaponArray[i].attacking = false;
             }

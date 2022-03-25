@@ -11,7 +11,7 @@ public class MachineGunScript : Weapon
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
 
-    void Awake()
+    public override void Setup()
     {
         maxAmmo = 150;
         machineGunTransform = transform;

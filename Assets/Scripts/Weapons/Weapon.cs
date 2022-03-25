@@ -9,4 +9,5 @@ public abstract class Weapon : MonoBehaviour
     public abstract void NoLongerAttacking();
     public int maxAmmo;
     public Transform firingPoint;
+    public abstract void Setup();
 }

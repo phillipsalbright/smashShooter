@@ -11,7 +11,7 @@ public class RocketLauncherScript : Weapon
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
 
-    void Awake()
+    public override void Setup()
     {
         maxAmmo = 20;
         launcherTransform = transform;

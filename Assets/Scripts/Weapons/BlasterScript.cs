@@ -13,7 +13,7 @@ public class BlasterScript : Weapon
     [SerializeField] private Animator animator;
     private AudioPlayer audioPlayer;
 
-    void Awake()
+    public override void Setup()
     {
         maxAmmo = 50;
         gunTransform = transform;

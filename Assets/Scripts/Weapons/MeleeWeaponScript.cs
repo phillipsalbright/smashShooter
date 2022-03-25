@@ -8,7 +8,7 @@ public class MeleeWeaponScript : Weapon
     private Animator meleeAnimator;
     private readonly float attackRate = 1f;
 
-    void Awake()
+    public override void Setup()
     {
         meleeAnimator = GetComponent<Animator>();
     }
