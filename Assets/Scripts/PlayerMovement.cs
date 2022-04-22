@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     private bool isGrounded;
     /** Distance from ground that counts as touching it */
-    [SerializeField] private float groundDistance;
+    [SerializeField] private float groundDistance = .4f;
     /** Mask containing only the ground */
     [SerializeField] LayerMask groundMask;
     RaycastHit slopeHit;
@@ -57,6 +57,14 @@ public class PlayerMovement : MonoBehaviour
     {
         player.useGravity = false;
         player.freezeRotation = true;
+        moveSpeed = 4.7f;
+        movementMultiplier = 10f;
+        airMultiplier = .24f;
+        jumpForce = 14;
+        gravityMultiplier = 2.6f;
+        groundDrag = 6;
+        airDrag = 1.5f;
+        groundDistance = .4f;
     }
 
     void Update()
@@ -139,13 +147,16 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
         if (isGrounded && !OnSlope())
         {
+            Debug.Log("1 " + moveDirection + " " + moveSpeed + " " + movementMultiplier + " " + airMultiplier + " " + this.GetComponent<Rigidbody>().velocity.magnitude);
             player.AddForce(movementMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Acceleration);
         } else if (isGrounded)
         {
+            Debug.Log("2 " + moveDirection + " " + moveSpeed + " " + movementMultiplier + " " + airMultiplier + " " + this.GetComponent<Rigidbody>().velocity.magnitude);
             slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
             player.AddForce(moveSpeed * movementMultiplier * slopeMoveDirection.normalized, ForceMode.Acceleration);
         } else
         {
+            Debug.Log("3 " + moveDirection + " " + moveSpeed + " " + movementMultiplier + " " + airMultiplier + " " + this.GetComponent<Rigidbody>().velocity.magnitude);
             player.AddForce(airMultiplier * movementMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Acceleration);
         }
         
